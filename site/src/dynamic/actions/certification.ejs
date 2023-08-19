@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Certify your own discord bot on the list.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Certification`, 
+    main_title: `${bot.user.username} | Certification`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<!-- Add Bot To Certification Process Content -->
+<center>
+  <% if(theme == "dark") { %> <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% }else{ %><img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% } %><br>
+  <h1>Certification</h1>
+</center>
+  <hr>
+  <center><h3><i class="fa fa-certificate"></i> Certification Perks</h3></center>
+  <div class="left">
+    <ul style="font-size: 20px;">
+        <li>Unique role for both you and your bot in our server
+        <li>Access to an exclusive channel
+        <li>Much higher chances to be featured in a home-page slot
+        <li>A badge for you and your bot on the site
+        <li>Vanity bot URL
+    </ul>
+  </div>
+  <hr>
+  <center><h3><i class="fa fa-book"></i> Certification Requirements</h3></center>
+  <div class="left">
+      <ul style="font-size: 20px;">
+          <li>Has atleast 30 unique views on bot page.
+          <li>Good Long Description with effective use of MarkDown and or HTML.
+          <li>Follows the Discord Bots <a href="https://discord.com/developers/docs/policy">Best Practice</a>
+          <li>Bot has been listed for at least 1 week.
+          <li>Has an active, friendly and helpful support server.
+          <li>Has at least 30 votes.
+          <li>100% original code not forked or cloned.
+          <li>Uses the bot widget on a Site, Command, or GitHub Repo.
+      </ul>
+      <label class="switch">
+        <input type="checkbox" onclick="requirements()" id="requirements" required/>
+        <span class="slider round"></span>
+      </label>
+      <label for="requirements">If you meet these requirements then check the box to proceed.</label>
+    </div>
+  <hr>
+<div id="program" style="display: none; animation: 0.7s ease 0s 1 normal none running fadeIn;">
+<center>
+  <% if(bots.length === 0) { %>
+    <h3><i class="fa fa-warning"></i> You do not have any approved bots to certify!</h3>
+    <% }else{ %>
+<div class="badge users" style="max-width: 800px; padding: 15px;">
+<form method="POST">
+    <p><i class="fa fa-certificate"></i> Select bot to certify</p>
+    <select class="input" name="botID" required>
+      <datalist>
+        <% bots.map(the_bot => { %>
+          <option value="<%= the_bot.botID %>"><%= bot.users.cache.get(the_bot.botID) ? bot.users.cache.get(the_bot.botID).username : the_bot.botName %></option>
+        <% }) %>
+      </datalist>
+    </select><br><br>
+    <textarea name="cert_reason" class="textarea" style="border: solid 2px grey;" placeholder="Explain why We should choose ur bot instead of other, also Include where you are using the bot widget and give proof or tell what we should do to see it"></textarea>
+    <button value="certifiy bot" class="realbutton" name="submit"><i class="fa fa-certificate"></i> Submit</button>
+</form>
+  </div>
+  <% } %>
+</center>
+</div>
+<!-- Certification Scripts-->
+<script>
+    function requirements(){
+        if(document.getElementById("requirements").checked) document.getElementById("program").style.display = "block";
+        else document.getElementById("program").style.display = "none";
+    }
+</script>
+
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

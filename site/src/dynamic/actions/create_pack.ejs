@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Create your own package & add bots to it.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Create Bot Pack`, 
+    main_title: `${bot.user.username} | Create Bot Pack`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<div style="align-items: center; justify-content: center; text-align: center;">
+<!-- Add Bot Package Box Content -->
+<form method="POST">
+  <div class="box">
+    <center><h1 style="text-align: center;"><i class="fa fa-plus"></i> Create Package</h1></center><hr>
+
+  <p for="library">Package name:</p>
+  <input class="input" name="name" maxlength="150" placeholder="i.e Server Moderation" required/>
+
+  <p for="prefix">Short description:</p>
+  <input class="input" name="short" placeholder="i.e This bot is mainly for moderation bots to get better secured server!" required/>
+
+   <p for="note">Package Bots:</p>
+   <input class="input" placeholder="Search for the bot you want to add!" id="search_value"/>
+   <div class="container" style="max-width: 1200px; justify-content: left; text-align: left; align-items: left;" id="output"></div>
+   <input class="input" name="bots" id="bots" placeholder="i.e 758643392535199764, 777612685700366347, 751100444188737617"/>
+   <p class="note">- Separate by comma(s) and space, as in placeholder & the max is 50 bot.</p>
+
+   <p for="tags">Choose Package tags:</p>
+   <select class="select" name="tags" multiple required>
+     <% bot.config.tags.map(tag => { %>
+       <option value="<%= tag %>"><%= tag %></option>
+     <% }) %>
+   </datalist>
+  </select>
+  <p class="note">- Ctrl + Click for multi select & Max tags is 10</p>
+
+  <center><button id="botBtn" name="submit" value="addpackage" info="Add package to our bot list" class="bigbutton"><i class="fa fa-plus"></i> Add Package</button></center>
+  </div>
+</form>
+</div>
+
+</body>
+<!-- Search Script -->
+<script src="/static/assets/scripts/packbots.js"></script>
+<script>
+  const add = (ID) => {
+    let input = document.getElementById("bots")
+    let array = input.value.split(", ").filter(function(el){return el})
+    array.push(ID)
+    input.value = array.toString().split(",").join(", ")
+  }
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

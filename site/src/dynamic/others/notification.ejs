@@ -1,0 +1,16 @@
+<% if(alert) { %>
+        <div class="notify" id="notify" style="animation: came-out 2s">
+            <b class="notify-title" style="color: green;"><i class="fa fa-check-circle"></i> Successful Alert</b><br>
+            <b><%= alert %></b>
+        </div> 
+    <% }else if(error){ %>
+        <div class="notify" id="notify" style="animation: came-out 2s">
+            <b class="notify-title" style="color: red;"><i class="fa fa-times-circle"></i> Error Occurred</b><br>
+            <b><%= error %></b>
+        </div>
+<% } %>
+<script>
+    setTimeout(() => {
+        document.getElementById("notify").style = "display: none;"
+    },  5000)
+</script>

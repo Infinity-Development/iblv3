@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Submit your bots to here.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Submit Bot`, 
+    main_title: `${bot.user.username} | Submit Bot`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %>
+   <%- include(dynamic + "/others/notification", {alert}) %>
+<% }else if(error){ %>
+   <%- include(dynamic + "/others/notification", {error}) %>
+<% } %>
+<body>
+
+<% if(!memberCheck){ %> 
+  <p class="error">Please join our <a href="/discord">Support Server</a> to add your Bot!</p>
+<% } %>
+
+<div style="align-items: center; justify-content: center; text-align: center;">
+<!-- Add Bot Box Content -->
+<center>
+<form method="POST">
+  <div class="box">
+    <center><h1 style="text-align: center;"><i class="fa fa-plus"></i> Add Bot</h1></center>
+    <br>
+    <center><p>To submit a bot you and all additional owners must be a member of our <a href="https://discord.gg/kKAAkhKRkQ">Discord Server</a><p></center>
+    <hr>
+    <p for="library">Bot ID:</p>
+    <input class="input" name="botID" type="number" placeholder="758643392535199764" required/>
+    <p class="note">- ClientID or Server BotID</p>
+
+    <p for="prefix">Prefix:</p>
+    <input class="input" name="prefix" placeholder="ak!" required/>
+
+    <p for="library">Library:</p>
+    <select class="input" name="library" required>
+    <datalist>
+      <% bot.config.librarys.map(library => { %>
+        <option value="<%= library %>"><%= library %></option>
+      <% }) %>
+    </datalist>
+  </select>
+
+  <p for="tags">Choose bot tags:</p>
+    <select class="select" name="tags" multiple required>
+    <datalist>
+      <% bot.config.tags.map(tag => { %>
+        <option value="<%= tag %>"><%= tag %></option>
+      <% }) %>
+    </datalist>
+   </select>
+   <p class="note">- Ctrl + Click for multi select & Max tags is 10</p>
+
+   <p for="invite">Invite: (<a id="PopoutBtn" class="button" style="padding: 0px;">Generate Invite</a>):</p>
+   <div id="Popout_window" class="fullscreen"><span class="close">&times;</span><iframe title="Permissions Gen" class="frame" src='https://discordapi.com/permissions.html'></iframe></div>
+   <input class="input" name="invite" placeholder="Start's with discordapp or discord.com"/>
+   <p class="note">- Leave it empty & we will generate one with no special permissions.</p>
+
+   <p for="support">Support Server:</p>
+   <input class="input" name="support" placeholder="discord.gg/<some symbols>" required/>
+
+   <p for="website">Website:</p>
+   <input class="input" name="website" placeholder="<%= bot.user.username %>"/>
+
+   <p for="short">Short Description:</p>
+   <input class="input" name="short" id='short' min="50" onkeyup="limitChars('short', 150, 'limits2', 50)" maxlength="150" placeholder="My bot is multi functions bot with some good commands."/>
+   <p class="note" id="limits2">- Max characters is 150, Minimum characters is 50</p>
+   <p class="note">- Max charactars is 150</p>
+
+   <p for="note">Note for staff:</p>
+   <input class="input" name="note" value="No note" maxlength="200" placeholder="To start use bot do #start..."/>
+   <p class="note">- Type how bot works or how to start it</p>
+
+   <p for="note">Additional Owners:</p>
+   <input class="input" name="additional_owners" maxlength="200" placeholder="324646179134636043, 324646179134636043, 324646179134636043"/>
+   <p class="note">- Separate by comma(s) and space, as in placeholder & the max is 3 additional owners.</p>
+
+   <p for="donate">Donate Url:</p>
+   <input class="input" name="donate" placeholder="i.e paypal.me/..... We already have the https:// added for you!"/>
+
+   <p for="github">Github Repo:</p>
+   <input class="input" name="github" placeholder="i.e github.com/..... We already have the https:// added for you!"/>
+
+   <p for="webhook">Webhook Url: (<a onclick="webhook()" class="button" style="padding: 0px;">Test Webhook</a>)</p>
+   <input class="input" id="webhook" name="webhook" placeholder="i.e https://discordapp.com/api/webhooks/<webhook_id>/<secret>"/>
+   <p class="note">- Discord webhook url to receive votes</p>
+   <p class="note" style="color: red">- Testing Doesnt currently work via Mobile Devices</p>
+
+   <p for="webhook">Custom Webhook Url: (<a onclick="custom_webhook()" class="button" style="padding: 0px;">Test Custom Webhook</a>)</p>
+   <input class="input" id="custom_webhook" name="custom_webhook" placeholder="i.e http://webhook.hook"/><br><br>
+   <input class="input" id="custom_webhook_auth" name="custom_webhook_auth" placeholder="i.e Webhook secret auth to know that the request came from us."/>
+   <p class="note">- Custom webhook to recieve votes at ur own webserver</p>
+   <p class="note" style="color: red">- Testing Doesnt currently work via Mobile Devices</p>
+
+   <p for="background">Background Url:</p>
+   <input class="input" name="background" placeholder="i.e https://i.imgur.com/lNdMzuW.png"/>
+   <p class="note">- Bot card background image url, imgur.com is only allowed!</p>
+
+
+   <p for="long">Long Description: (<a id="PreviewBtn" class="button" style="padding: 0px;">Preview</a>):</p>
+   <textarea id="long" maxlength="15000" min="100" onkeyup="limitChars('long', 15000, 'limits', 100)" class="textarea" name="long" placeholder="
+   My bot is multi purpose bot with much good commands
+   1.Fun commands
+   2.Moderation commands
+   3.Economy commands
+
+   Fun commands are (8ball, love, random, cat, dog, mat, meme, rps)
+   Moderation commands are (ban, kick, mute, unmute, kick, warn, lock, unlock)
+   Economy commands are (beg, rich, leaderboards, balance, rob, daily, weekly, search, find)
+   
+   Why choose my bot:
+
+   for...
+   "></textarea>
+   <div id="loading" class="fullscreen">
+   <center><div class="loader"></div></center>
+   </div>
+   <div id="Preview_window" class="fullscreen">
+     <div class="preview_screen">
+      <span class="close" style="margin: 2px;" onclick="close_preview()">&times;</span>
+      <p class="markdown-body" id="preview_text"></p></div></div>
+      <p class="note" id="limits">- Max characters is 15k, Minimum characters is 100</p>
+      <p class="note">- Supports “<a href="https://www.markdownguide.org/cheat-sheet/">Markdown</a> & <a href="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf">HTML”</a></p><br>
+      <p class="note" style="color: red;">- If the preview doesn't load or work you did something wrong and it can't convert the content</p><br>
+
+   <label class="switch">
+    <input id="themetoggle" type="checkbox" name="nsfw">
+    <span class="slider round"></span>
+  </label>
+  <b>Does your bot have any NSFW Features or Commands?</b><br><br>
+  <label class="switch">
+    <input id="themetoggle" type="checkbox" name="cross_add">
+    <span class="slider round"></span>
+  </label>
+  <b>Infinity Bot list has teamed up with a few other lists to provide a service that allows us to cross add bots between lists. If you want to opt in to this feature please check this box.</b><br><br>
+   <center><button id="botBtn" name="submit" value="addbot" info="Add bot to our bot list" class="bigbutton"><i class="fa fa-plus"></i> Add Bot</button></center>
+   </div>
+</form>
+</center>
+</div>
+  <div class="container" style="align-items: center; justify-content: center;">
+    <a onclick="window.history.back()" class="realbutton" style="width: 200px; height: 40px; font-size: 20px;" name="submit">Go to Back</a>
+    <a href="/" class="realbutton" style="width: 200px; height: 40px; font-size: 20px;" name="submit">Home Page</a>
+  </div>
+ 
+ </body>
+<!-- Pop Out Window Script -->
+<script src="/static/assets/scripts/popout.js"></script>
+<script src="/static/assets/scripts/webhooks.js"></script>
+<script>
+  function limitChars(textid, limit, infodiv, less) {
+    var text = $('#'+textid).val(); 
+    var textlength = text.length;
+    if(textlength > limit) {
+        $('#' + infodiv).html('- You cannot write more then '+limit+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    if(textlength < less) {
+        $('#' + infodiv).html('- You cannot write less then '+less+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    else {
+        $('#' + infodiv).html('- You have '+ (limit - textlength) +' characters left.');
+        return true;
+    }
+}
+
+// Bind the function to ready event of document. 
+$(function(){
+    $('#comment').keyup(function(){
+        limitChars('comment', 140, 'charlimitinfo');
+    })
+});
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

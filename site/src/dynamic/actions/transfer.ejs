@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Transfer your own bot to other developers!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Transfer`, 
+    main_title: `${bot.user.username} | Transfer`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<!-- Transfer Bots To People Section -->
+<center>
+  <% if(theme == "dark") { %> <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% }else{ %><img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% } %><br>
+  <h1>Transfer Bots</h1><hr>
+  <% if(bots.length === 0) { %>
+    <h3><i class="fa fa-warning"></i> You don't have any approved bots to transfer!</h3>
+    <% }else{ %>
+<div class="badge users" style="max-width: 800px;">
+<form method="POST">
+    <p><i class="fa fa-mail-forward"></i> Select bot to transfer:</p>
+    <select class="input" name="botID" required>
+      <datalist>
+        <% bots.map(the_bot => { %>
+          <option value="<%= the_bot.botID %>"><%= bot.users.cache.get(the_bot.botID) ? bot.users.cache.get(the_bot.botID).username : the_bot.botName %></option>
+        <% }) %>
+      </datalist>
+    </select><br><br>
+    <input name="userID" class="input" placeholder="i.e receiverID of your bot " required/><br><br>
+    <button value="transfer bot" class="realbutton" name="submit"><i class="fa fa-mail-forward"></i> Transfer:</button>
+</form>
+  </div>
+  <% } %>
+</center>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+<%- include(footerPath) %>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, The user own profile!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Profile`, 
+    main_title: `${bot.user.username} | Profile`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+  <center>
+      <img src="<%= user.displayAvatarURL({dynamic: true}) %>" alt="Infinity Bot List" class="user-icon">
+      <h2 style="font-size: 25px; margin: 12px;"><%= user.tag %></h2>
+      <div class="container">
+        <%- include(dynamic + "/others/badges", {member}) %>
+        <b class="badge users"><i class="fa fa-user"></i> Member</b>
+      </div>
+      <p style="font-size: 15px; margin: 15px;"><%= member.about %></p>
+    <hr>
+    <a class="button" href="/profile/transfer"><i class="fa fa-mail-forward"></i> Transfer Bots</a><br>
+  <b>Delete all Data we are Collecting!</b>
+  <label class="switch">
+    <input type="checkbox" onclick="del_data()" id="captcha">
+    <span class="slider round"></span>
+  </label><br>
+  <div id="delete" style="display: none; animation: 0.7s ease 0s 1 normal none running fadeIn;">
+  <form method="POST">
+    <button class="realbutton" value="delete my data" name="delete_data"><i class="fa fa-trash"></i> Delete My Data</button>
+  </form>
+  </div>
+<b>Change Profile Links & Biography</b>
+<label class="switch">
+  <input type="checkbox" onclick="display_settings()" id="agree">
+  <span class="slider round"></span>
+</label>
+<div id="settings" style="display: none; animation: 0.7s ease 0s 1 normal none running fadeIn;">
+<h3><i class="fa fa-cogs"></i> Settings</h3>
+<form method="POST">
+    <p><i class="fa fa-edit"></i> Brief yourself, tell us more about you: </p>
+    <input class="input" name="bio" placeholder="my name is: mickel, I love programming bots!" value="<%= member.about %>" required/>
+
+    <p><i class="fa fa-window-restore"></i> Website: </p>
+    <input class="input" name="website" type="url" placeholder="https://infinitybots.gg" value="<%= member.website %>"/>
+
+    <p><i class="fa fa-code"></i> GitHub Account: </p>
+    <input class="input" name="github" type="url" placeholder="https://github.com/Connor200024" value="<%= member.github %>"/>
+
+    <p><i class="fa fa-hashtag"></i> Your Name: </p>
+    <input class="input" name="nickname" placeholder="Connor" value="<%= member.nickname %>"/><br><br>
+
+  <button class="realbutton" value="change bio" name="submit"><i class="fa fa-check"></i> Save Changes</button>
+</form>
+</div>
+<hr>
+<!-- User Bots -->
+  <h3>Bots</h3>
+  <% if(bots.length === 0 && additionalbots.length === 0) { %>
+    <b>You don't have any approved or queue'd bots!</b>
+    <% }else{ %>
+<div style="animation: start 2s;">
+  <div class="container">
+      <% for(i = 0; i < bots.length; i++){ %>
+        <%- include(dynamic + "/others/profilecard", {bots: bots[i]}) %>
+      <% } %>
+      <% for(i = 0; i < additionalbots.length; i++){ %>
+        <%- include(dynamic + "/others/profilecard", {bots: additionalbots[i]}) %>
+      <% } %>
+    <% } %>
+  </div>  
+</div>
+<hr>
+<!-- User Packs -->
+<h3>User Packages</h3>
+<% if(packs.length === 0) { %>
+  <b>You don't have any packs!</b>
+  <% }else{ %>
+<div style="animation: start 2s;">
+<div class="container">
+    <% for(i = 0; i < packs.length; i++){ %>
+      <%- include(dynamic + "/others/pack", {pack: packs[i]}) %>
+    <% } %>
+  <% } %>
+</div>  
+</div>
+</center>
+</body>
+<!-- Scripts-->
+<script>
+  function del_data(){
+      if(document.getElementById("captcha").checked) document.getElementById("delete").style.display = "block";
+      else document.getElementById("delete").style.display = "none";
+  }
+  function display_settings(){
+        if(document.getElementById("agree").checked) document.getElementById("settings").style.display = "block";
+        else document.getElementById("settings").style.display = "none";
+    }
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

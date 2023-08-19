@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Your bot is denied? no worries go resubmit again!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Resubmit Bot`, 
+    main_title: `${bot.user.username} | Resubmit Bot`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<center>
+<!-- Resubmit Bot On Bot List -->
+<center>
+<form method="POST">
+  <div class="box">
+    <center><h1><i class="fa fa-pencil"></i> Resubmit <%= rebot.botName %></h1></center><hr>
+
+    <p for="library"><b style="color: red;">ReadOnly</b> Bot ID:</p>
+    <input class="input" name="botID" type="number" value="<%= rebot.botID %>" readonly required/>
+    <p class="note">- ClientID or Server BotID</p>
+
+    <p for="prefix">Prefix:</p>
+    <input class="input" name="prefix" placeholder="ak!" value="<%= rebot.prefix %>" required/>
+
+    <p for="library">Library:</p>
+    <select class="input" name="library" required>
+    <datalist>
+      <option value="<%= rebot.library %>"><%= rebot.library %></option>
+      <% bot.config.librarys.map(library => { %>
+        <% if(library !== rebot.library) { %>
+        <option value="<%= library %>"><%= library %></option>
+        <% } %>
+      <% }) %>
+    </datalist>
+  </select>
+
+  <p for="tags">Choose bot tags:</p>
+    <select class="select" name="tags" multiple required>
+      <% bot.config.tags.map(tag => { %>
+        <% if(rebot.tags.includes(tag)){ %><option value="<%= tag %>" selected><%= tag %></option><% }else{ %><option value="<%= tag %>"><%= tag %></option><% } %>
+      <% }) %>
+    </datalist>
+   </select>
+   <p class="note">- Ctrl + Click for multi select & Max tags is 4</p>
+
+   <p for="invite">Invite: (<a id="PopoutBtn" class="button" style="padding: 0px;">Generate Invite</a>):</p>
+   <div id="Popout_window" class="fullscreen"><span class="close">&times;</span><iframe title="Permissions Gen" class="frame" src='https://discordapi.com/permissions.html'></iframe></div>
+   <input class="input" name="invite" placeholder="Start's with discordapp ot discord.com" value="<%= rebot.invite %>"/>
+   <p class="note">- Leave it empty & we will generate one with no special permissions</p>
+
+   <p for="support">Support Server:</p>
+   <input class="input" name="support" placeholder="discord.gg/<some symbols>" value="<%= rebot.support %>" required/>
+
+   <p for="website">Website:</p>
+   <input class="input" name="website" placeholder="<%= bot.user.username %>" value="<%= rebot.website %>"/>
+
+   <p for="short">Short Description:</p>
+   <input class="input" name="short" id='short' min="50" onkeyup="limitChars('short', 150, 'limits2', 50)" maxlength="150" placeholder="My bot is multi functions bot with some good commands." value="<%= rebot.short %>"/>
+   <p class="note" id="limits2">- Max characters is 150, Minimum characters is 50</p>
+   <p class="note">- Max charactars is 150</p>
+
+   <p for="note"><b style="color: red;">ReadOnly</b> Note for staff:</p>
+   <input class="input" name="note" maxlength="200" value="<%= rebot.note %>" />
+   <p class="note">- Type how bot works or how to start it..</p>
+   
+   <% if(rebot.main_owner === user.id) { %>
+    <p for="note">Additional Owners:</p>
+    <input class="input" name="additional_owners" value="<%= rebot.additional_owners.toString().split(',').join(', ') %>" maxlength="200" placeholder="324646179134636043, 324646179134636043, 324646179134636043"/>
+   <% }else{ %>
+     <p for="note"><b style="color: red;">ReadOnly</b> Additional Owners:</p>
+     <input class="input" name="additional_owners" value="<%= rebot.additional_owners.toString().split(',').join(', ') %>" maxlength="200" placeholder="324646179134636043, 324646179134636043, 324646179134636043" readonly/>
+   <% } %>
+   <p class="note">- Separate by comma(s) and space, as in placeholder & the max is 3 additional owners.</p>
+   
+   <p for="donate">Donate Url:</p>
+   <input class="input" name="donate" value="<%= rebot.donate %>" placeholder="i.e paypal.me/....."/>
+
+   <p for="github">Github Repo:</p>
+   <input class="input" name="github" value="<%= rebot.github %>" placeholder="i.e github.com/....."/>
+
+   <p for="webhook">Webhook Url: (<a onclick="webhook()" class="button" style="padding: 0px;">Test Webhook</a>)</p>
+   <input class="input" id="webhook"  name="webhook" value="<%= rebot.webhook %>" placeholder="i.e https://discordapp.com/api/webhooks/<webhook_ID>/<secret>"/>
+  <p class="note">- Discord webhook url to receive votes</p>
+  <p class="note" style="color: red">- Testing Doesnt currently work via Mobile Devices</p>
+
+  <p for="webhook">Custom Webhook Url: (<a onclick="custom_webhook()" class="button" style="padding: 0px;">Test Custom Webhook</a>)</p>
+  <input class="input" id="custom_webhook" name="custom_webhook" value="<%= rebot.webURL %>" placeholder="i.e http://webhook.hook"/><br><br>
+  <input class="input" id="custom_webhook_auth" name="custom_webhook_auth" value="<%= rebot.webAuth %>" placeholder="Webhook secret auth to know that the request came from us."/>
+  <p class="note">- Custom webhook to recieve votes at ur own webserver</p>
+  <p class="note" style="color: red">- Testing Doesnt currently work via Mobile Devices</p>
+
+  <p for="background">Background Url:</p>
+  <input class="input" name="background" value="<%= rebot.background %>" placeholder="i.e https://i.imgur.com/lNdMzuW.png"/>
+  <p class="note">- Bot card background image url, imgur.com is only allowed!</p>
+
+  <p for="long">Long Description: (<a id="PreviewBtn" class="button" style="padding: 0px;">Preview</a>)</p>
+  <textarea id="long" class="textarea" min="100" maxlength="15000" onkeyup="limitChars('long', 15000, 'limits', 100)" name="long" placeholder="
+   My bot is multi purpose bot with much good commands
+   1.Fun commands
+   2.Moderation commands
+   3.Economy commands
+
+   Fun commands are (8ball, love, random, cat, dog, mat, meme, rps)
+   Moderation commands are (ban, kick, mute, unmute, kick, warn, lock, unlock)
+   Economy commands are (beg, rich, leaderboards, balance, rob, daily, weekly, search, find)
+   
+   Why choose my bot:
+
+   for...
+   "><%= rebot.long %></textarea>
+   <div id="loading" class="fullscreen">
+    <center><div class="loader"></div></center>
+   </div>
+   <div id="Preview_window" class="fullscreen">
+     <div class="preview_screen">
+      <span class="close" style="margin: 2px;" onclick="close_preview()">&times;</span>
+      <p class="markdown-body" id="preview_text"></p></div></div>
+      <p class="note" id="limits">- Max characters is 15k, Minimum characters is 100</p>
+      <p class="note">- Supports “<a href="https://www.markdownguide.org/cheat-sheet/">Markdown</a> & <a href="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf">HTML”</a></p><br>
+      <p class="note" style="color: red;">- If the preview doesn't load or work you did something wrong and it can't convert the content</p>
+
+   <label class="switch">
+    <% if(rebot.nsfw) { %> <input id="themetoggle" type="checkbox" name="nsfw" checked> <% }else{ %> <input id="themetoggle" type="checkbox" name="nsfw"> <% } %>
+    <span class="slider round"></span>
+  </label>
+  <b>Your bot has NSFW commands or a NSFW long description..</b><br><br>
+   <center><button id="botBtn" name="submit" value="addbot" info="Resubmit bot at our bot list" class="bigbutton"><i class="fa fa-check"></i> Resubmit</button></center>
+  </div>
+</form>
+</center>
+<div class="container" style="align-items: center; justify-content: center;">
+  <a onclick="window.history.back()" class="realbutton" style="width: 200px; height: 40px; font-size: 20px;" name="submit">Go to Back</a>
+  <a href="/" class="realbutton" style="width: 200px; height: 40px; font-size: 20px;" name="submit">Home Page</a>
+</div>
+</center>
+</body>
+<!-- Pop Out Window Script -->
+<script src="/static/assets/scripts/popout.js"></script>
+<script src="/static/assets/scripts/webhooks.js"></script>
+<script>
+  function limitChars(textid, limit, infodiv, less) {
+    var text = $('#'+textid).val(); 
+    var textlength = text.length;
+    if(textlength > limit) {
+        $('#' + infodiv).html('- You cannot write more then '+limit+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    if(textlength < less) {
+        $('#' + infodiv).html('- You cannot write less then '+less+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    else {
+        $('#' + infodiv).html('- You have '+ (limit - textlength) +' characters left.');
+        return true;
+    }
+}
+
+// Bind the function to ready event of document. 
+$(function(){
+    $('#comment').keyup(function(){
+        limitChars('comment', 140, 'charlimitinfo');
+    })
+});
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

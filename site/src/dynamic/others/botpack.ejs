@@ -1,0 +1,50 @@
+<div class="bot_box">
+  <% if(bots.background !== "https://i.imgur.com/lNdMzuW.png") { %>
+    <img src="<%= bots %>" alt="Banner" onerror="this.onerror=null; this.src='https://i.imgur.com/lNdMzuW.png';" class="banner">
+    <% }else{ %>
+      <img src="https://i.imgur.com/lNdMzuW.png" style="opacity: 0.1;" alt="Banner" class="banner">
+    <% } %>
+   <div style="padding: 12px;">
+    <b info="<%= bot.users.cache.get(bots) ? bot.users.cache.get(bots).presence.status.toUpperCase() : 'OFFLINE' %>" class="status <%= bot.users.cache.get(bots) ? bot.users.cache.get(bots).presence.status : 'offline' %>" style="font-size: 12px; float: left;"><i class="fa fa-circle" style="font-size: 12px;"></i></b>
+    <img style="cursor: pointer; margin-top: -70px;" alt="avatar" onclick="window.location.href = '/bots/<%= bots %>'" src="<%= bot.users.cache.get(bots) ? bot.users.cache.get(bots).displayAvatarURL() : 'https://i.imgur.com/Z1jey6q.png' %>" class="<%= bots.nsfw ? 'bot-icon blur' : 'bot-icon' %>">
+    <h3 style="cursor: pointer;" onclick="window.location.href = '/bots/<%= bots %>'"><%= bot.users.cache.get(bots) ? bot.users.cache.get(bots).username.length > 15 ? bot.users.cache.get(bots).username.slice(0, 15) + "..." : bot.users.cache.get(bots).username : "NONE"  %></h3>
+    <div class="container" style="height: 20px; margin: 0px; padding: 0px;">
+      <div><b id="servers<%= bots %>" class="badge users" style="font-size: 13px; padding: 3px;"></b></div>
+      <div><b id="votes<%= bots %>" class="badge users" style="font-size: 13px; padding: 3px;"></b></div>
+      <div><b id="invites<%= bots %>" class="badge users" style="font-size: 13px; padding: 3px;"></b></div>
+    </div>
+    <p class="shortdesc" id="short<%= bots %>" style="text-align: center; height: 50px; overflow: auto;"></p>
+    <p class="tags" id="tags<%= bots %>"></p>
+    <div class="container" style="height: 3px; margin: 0px; padding: 0px;">
+      <div id="nsfw<%= bots %>" style="display: none;"><a class="badge ach" href="/bots/add"><i class="fa fa-user-secret"></i> NSFW</a></div>
+      <div id="staff<%= bots %>" style="display: none;"><b class="badge ach"><i class="fa fa-gavel"></i> Staff</b></div>
+      <div id="certified<%= bots %>" style="display: none;"><a class="badge ach" href="/bots/certification"><i class="fa fa-certificate"></i> Certified</a></div>
+      <div><a class="badge ach" href="/bots/add"><i class="fa fa-check-circle"></i> Approved</a></div>
+      <div id="premium<%= bots %>" style="display: none;"><a class="badge ach" href="/premium"><i class="fa fa-diamond"></i> Premium</a></div>
+    </div>
+    <br>
+    <button onclick="window.location.href='/bots/<%= bots %>/'" class="card_button" style="float: left;">View</button>
+    <button onclick="window.location.href='/bots/<%= bots %>/vote'" class="card_button">Vote</button>
+    <button onclick="window.location.href='/bots/<%= bots %>/invite'" class="card_button" style="float: right;">Invite</button>
+  </div>
+  <script>
+$.ajax({
+    url: `/api/bots/<%= bots %>/data`,
+    type: "get",
+    responseType: "json",
+    success: function(res) {
+        let data = JSON.parse(res)
+        if(data.nsfw) $("#nsfw<%= bots %>").css("display", "block");
+        if(data.certified) $("#certified<%= bots %>").css("display", "block");
+        if(data.premium) $("#premium<%= bots %>").css("display", "block");
+        if(data.staff) $("#staff<%= bots %>").css("display", "block");
+        $("#banner<%= bots %>").attr("src", data.banner);
+        $("#tags<%= bots %>").html(data.tags.length > 40 ? `${data.tags.slice(0, 40)}...` : data.tags);
+        $("#votes<%= bots %>").text(`${data?.votes || "N/A"} Votes`);
+        $("#servers<%= bots %>").text(`${data?.servers || "N/A"} Servers`);
+        $("#invites<%= bots %>").text(`${data?.invites || "N/A"} Invites`);
+        $("#short<%= bots %>").html(data.short_desc);
+    }
+});
+</script>
+  </div>

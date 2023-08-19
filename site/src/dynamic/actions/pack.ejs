@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: `Infinity Bot List, ${pack.short}`, 
+    description2: pack.short, 
+    title: `${bot.user.username} | ${pack.name} Package`, 
+    main_title: `${bot.user.username} | ${pack.name} Package`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<!-- Package Content -->
+<body>
+
+<div style="margin: 50px;">
+    <div class="container" style="justify-content: left; align-items: left; text-align: left;">
+<div>
+    <img src="https://cdn.iconscout.com/icon/free/png-256/box-package-parcel-logistic-delivery-unpack-open-shipping-5-20583.png" style="opacity: 0.7; width: 230px; height: 180px;">
+</div>
+<div style="margin: 10px;">
+    <div class="container" style="justify-content: left; align-items: left; text-align: left; padding: 0px;">
+    <h3><%= pack.name.length > 100 ? pack.name.slice(0, 100) + "..." : pack.name %></h3>
+    <form method="POST">
+        <p class="note"><%= pack.votes %> VOTES</p>
+    </form>
+</div>
+    <h5 class="note" style="margin: 0px;"><%= pack.short %></h5>
+    <b style="margin: 0px;"><%= pack.tags %></b>
+    <div class="container" style="justify-content: left; text-align: left; align-items: left;">
+            <form method="POST"><button class="realbutton" name="vote" value="Vote!"><i class="fa fa-level-up"></i> Vote</button></form>
+            <a id="link" class="realbutton" onclick="setClipboard('<%= bot.config.domain_short %>/<%= pack.url %>/p')"><i class="fa fa-file-powerpoint-o"></i> Share Link</a>
+    <% if(user && user.id == pack.owner){ %>
+            <button class="realbutton" onclick="window.location.href='/packs/<%= pack.url %>/edit'"><i class="fa fa-pencil"></i> Edit</button>
+    <form method="POST">
+            <button class="realbutton" name="delete" value="Delete the package!"><i class="fa fa-trash"></i> Delete Pack</button>
+    <% } %>
+  </form>
+  </div>
+</div>
+</div>
+<br><br>
+<div style="float: right; margin: 25px; margin-right: 70px;">
+    <img onclick="window.location.href='/users/<%= pack.owner %>'" src="<%= bot.users.cache.get(pack.owner) ? bot.users.cache.get(pack.owner).displayAvatarURL({dynamic: true}) : 'https://i.imgur.com/Z1jey6q.png' %>" style="width: 30px; border-radius: 20px; cursor: pointer;">
+    <a style="text-decoration: none;" onclick="window.location.href='/users/<%= pack.owner %>'" ><%= bot.users.cache.get(pack.owner) ? bot.users.cache.get(pack.owner).tag : 'None#0000' %></a>
+</div>
+<h2 style="margin-left: 70px;">Package Bots</h2>
+<hr>
+<center><div id="loader" class="loader"></div></center>
+<div style="display: none;" id="bots">
+<div class="container">
+    <% for(i = 0; i < pack.bots.length; i++){ %>
+        <%- include(dynamic + "/others/botpack", {bots: pack.bots[i]}) %>
+     <% } %>
+</div>
+</div>
+</div>
+
+</body>
+<!-- Pop Out Window Script -->
+<script src="/static/assets/scripts/popout.js"></script>
+<script>
+    setTimeout(() => {
+        document.getElementById("loader").style.display = 'none';
+        document.getElementById("bots").style.display = 'block';
+    }, 1500)
+    function setClipboard(value) {
+    var tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    document.getElementById("link").innerHTML = "Copied!"
+    setTimeout(() => {
+        document.getElementById("link").innerHTML = "<i class='fa fa-file-powerpoint-o'></i> Share Link"
+    }, 2000)
+}
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

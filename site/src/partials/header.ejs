@@ -1,0 +1,164 @@
+<head>
+<!-- Head Content --> 
+        <meta name='dmca-site-verification' content='QU1ZcnV4MTdPdjlRKzI5blRhMTZMTTJseHdlOWxRcUhIYUk4SzlzaXRLaz01' />
+        <meta name="og:description" content="<%= description && description !== 'none' ? description : 'We make it easier for you to advertise and grow your Discord Bots using our bot packs, vanity link’s, stylish widget’s and more.' %>" />
+        <meta property="og:description" content="<%= description2 && description2 !== 'none' ? description2 : bot.user.username %>" />
+        <meta name="description" content="<%= description && description  !== 'none'? description : 'We make it easier for you to advertise and grow your Discord Bots using our bot packs, vanity link’s, stylish widget’s and more.' %>" />
+        <meta name="og:title" content="<%= title && title !== 'none' ? title : bot.user.username %>" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="og:url" content="<%= bot.config.domain %>/" />
+        <meta name="theme-color" content="#7289DA" />
+	<meta name="msapplication-TileColor" content="#7289DA" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#7289DA">
+        <meta name="msapplication-navbutton-color" content="#7289DA">
+        <link rel="canonical" href="https://infinitybots.gg">
+        <meta name="copyright" content="(c) Copyright 2021 - 2022 Infinity Bot List">
+        <meta name="HandheldFriendly" content="true">
+        <meta property="og:site_name" content="Infinity Bot List">
+        <meta name="og:image" content="<%= image && image !== 'none' ? image : 'https://cdn.infinitybots.xyz/images/png/Infin2.png' %>" />
+        <title><%= main_title && main_title !== 'none' ? main_title : 'Infinity Bot List' %></title>
+        <meta name="keywords" content="discord bots, mee6, rythm bot, dyno bot, mee6 bot, discord music bot, pokecord, groovy bot, rythm bot discord, tatsumaki bot, discord api, ibl, rythm bot commands, mee6 commands, music bot, discord rythm bot, vexera, mudae bot, best discord bots, discord bot list, dyno discord bot, mee6 discord, discord commands, discord py, yagpdb bot, fredboat, discord, discord moderation bot, moderation, moderation bot, utility, InfinityBotList, infinitybotlist, infinitybots, InfinityBotList.com, infinitybots.xyz, ibl.rocks, docs.infinitybotlist.com" />
+        <script defer src="/static/assets/scripts/header.js"></script>
+        <script src="https://hcaptcha.com/1/api.js?hl=en" async defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.2/umd/popper.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+        <link rel="preload" href="/static/assets/css/main.css" as="style">
+        <link rel="stylesheet" type="text/css" href="/static/assets/css/main.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://kit.fontawesome.com/22859885a2.js" crossorigin="anonymous"></script>
+        <link rel="shortcut icon" href="https://cdn.infinitybots.xyz/images/png/Infin2.png">
+
+        <% if(theme == "dark"){ %><link rel="stylesheet" type="text/css" href="/static/assets/css/theme/dark.css" /> 
+        <link rel="stylesheet" type="text/css" href="/static/assets/markdown/dark.css" />
+        <% }else{ %><link rel="stylesheet" type="text/css" href="/static/assets/css/theme/light.css" />
+        <link rel="stylesheet" type="text/css" href="/static/assets/markdown/light.css" />
+        <% } %>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BXNS77FFHX"></script>
+        <script>
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+           gtag('config', 'G-BXNS77FFHX');
+        </script>
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-193188851-1">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-193188851-1');
+</script>
+</head>
+
+  <!-- Mobile Header -->
+        <div class="header">
+          <div class="header-left">
+            <div class="phone">
+              <div class="dropdown2">
+              <button class="dropbtn2" aria-label="MobileNavBar" name="MobileNavBar"><i class="fa fa-navicon"></i></button>
+                <div class="dropdown2-content">
+                  <div style="text-align: center;">
+
+                  </div>
+                  <div class="container">
+                    <a href="/" ><i class="fa fa-home"></i> Home</a>
+                    <a href="/about" ><i class="fa fa-users"></i> About Us</a>
+                    <a target="_blank" href="/discord"><i class="fab fa-discord"></i> Discord</a>
+                    <div class="dropdown">
+                      <a class="dropbtn"><i class="fas fa-robot"></i> Bots</a>
+                    <div class="dropdown-content">
+                    <div class="container">
+                      <a href="/list"><i class=" fa fa-robot"></i> Bots</a>
+                      <a href="/packs"><i class="fa fa-cube"></i> Packs</a>
+                      <a href="/queue"><i class="fa fa-list"></i> Queue</a>
+		      <a href="/search"><i class="fa fa-globe"></i> Search</a>
+                    </div>
+                  </div>
+                 </div>
+                 <div class="dropdown">
+                  <a class="dropbtn"><i class="fa fa-group"></i> Community</a>
+                 <div class="dropdown-content">
+                 <div class="container">
+                    <a href="/partners"><i class="fa fa-handshake-o"></i> Partners</a>                 
+                    <a href="https://guide.infinitybots.gg/"><i class="fa fa-book"></i> Docs</a>
+                    <a href="https://status.botlist.site"><i class="fa fa-bolt"></i> Status</a>
+                    <a href="/stats"><i class="fa fa-line-chart"></i> Stats</a>
+                 </div>
+               </div>
+              </div>           
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Desktop Header -->
+    <div class="container">
+        <div class="desktop">
+                  <% if(theme == "dark") { %> <a href="/" ><img loading="auto" src="https://i.imgur.com/d7rG4HS.png" alt="Infinity Bot List" style="width: 42px;"></a><% }else{ %><a href="/" ><img loading="auto" src="https://i.imgur.com/x0LCfAh.png" alt="Infinity Bot List" style="width: 42px;"></a><% } %>
+                  <a href="/about" ><i class="fa fa-users"></i> About Us</a>
+                  <a target="_blank" href="/discord"><i class="fab fa-discord"></i> Discord</a>
+                  <a href="/list"><i class="fas fa-robot"></i> Bots</a>
+                  <a href="/packs"><i class="fa fa-cube"></i> Packs</a>
+                  <a href="/partners"><i class="fa fa-handshake-o"></i> Partners</a>
+                  <a href="https://guide.infinitybots.gg/"><i class="fa fa-book"></i> Docs</a>
+                  <a href="/queue"><i class="fa fa-list"></i> Queue</a>
+                  <a href="https://status.botlist.site"><i class="fa fa-bolt"></i> Status</a>
+		  <a href="/search"><i class="fa fa-globe"></i> Search</a>
+           </div>
+         </div>
+       </div>
+
+  <!-- Profile DropDown -->
+    <div class="header-right">
+      <% if (user) { %>
+        <div class="dropdown">
+          <div class="container" style="padding: 0px;">
+                <img loading="auto" src="<%= user.displayAvatarURL({dynamic: true}) %>" alt="Infinity Bot List" style="border-radius: 50px;" width="35px" height="35px" >
+                <button class="dropbtn"><%= user.tag %> <i class="fa fa-caret-down"></i></button>
+          </div>
+        <div class="dropdown-content">
+        <div class="container">
+                <a href="/profile"><i class="fa fa-user-circle-o"></i> Profile</a>
+                <% if(user && bot.config.team.includes(user.id)) { %> <a href="/panel"><i class="fa fa-dashboard"></i> Panel</a> <% } %>
+                <a href="/bots/add"><i class="fa fa-plus"></i> Add Bot</a>
+                <a href="/packs/add"><i class="fa fa-cube"></i> Add Pack</a>
+                <a href="/premium"><i class="fa fa-diamond"></i> Premium</a>
+                <a href="/bots/certification"><i class="fa fa-certificate"></i> Certification</a>
+                <a href="/stats"><i class="fa fa-line-chart"></i> Stats</a>
+                <% if(theme == "dark") { %>
+                    <a id="themetoggle" onclick="theme('light')"><i class="fas fa-sun"></i> Light Mode</a>
+                <% }else{ %>
+                    <a id="themetoggle" onclick="theme('light')"><i class="fas fa-moon"></i> Dark Mode</a>
+                <% } %>
+              <a id="NewsBtn"><i class="fa fa-bullhorn"></i> News</a>
+              <a style="color: rgb(151, 26, 26)" href="/logout"><i class="fa fa-sign-out"></i> Log Out</a>
+        </div>
+      </div> 
+      <% } else { %><a class="button" style="font-size: 20px; float: right; width: 200px; margin: 7px;" href="/login">Login via Discord <i class="fa fa-sign-in"></i></a><% } %>
+        </div>
+      </div>
+    </div>
+            <button aria-label="BackToTop" name="BackToTop" style="animation: fadeIn 0.4s;" style="margin-left: 20px;" onclick="topFunction()" id="myBtn" info="Back to Top"><i class="fa fa-angle-double-up"></i></button>
+            <div id="News_Screen" class="news_screen" style="animation: jump 0.8s;">
+              <span class="close" style="margin: 2px;" onclick="close_news()">&times;</span>
+                <% bot.config.news.map(msg => { %>
+                  <h3 class="text_l"><i class="fa fa-bullhorn"></i> <%= msg.title %></h3>
+                  <hr style="margin: 0px;">
+                  <p class="text_l"><%= msg.content %></p>
+                  <% if(msg.button) { %>
+                    <a class="button" style="text-align: left; padding: 0px;" href="<%= msg.button %>"><%= msg.button_name || "Links" %></a>
+                  <% } %>
+                  <br /><br />
+                  <p class="text_l">Published: <%= msg.date %></p>
+                  <p class="text_r">Author: <%= msg.publisher %></p>
+                  <hr style="margin: 0px;">
+                <% }) %>
+            </div>

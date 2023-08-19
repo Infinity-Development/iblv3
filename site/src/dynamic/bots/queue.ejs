@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Official Queue for Infinity Bot List", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Queue Page`, 
+    main_title: `${bot.user.username} | Queue Page`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+
+<body>
+
+<% let numToAdd = 1 %>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+<!-- Verification Queue -->
+<h3><i class="fa fa-check"></i> Bots in Queue</h3>
+<b class="badge users"><i class="fa fa-check"></i> Approved Bots: <%= approved.length %></b>
+<b class="badge users"><i class="fa fa-ban"></i> Denied Bots: <%= denied.length %></b>
+<br><br>
+<b class="badge users"><i class="fa fa-line-chart"></i> Approval Rate: 80%</b>
+<br><br>
+<center>
+<p class="error">These bots aren't approved, Inviting a Unverified bot could be dangerous and we take no responsibility for any of the bots actions!</p>
+</center>
+<hr>
+<% if(bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There is nothing to see here chief!</b>
+  <% }else{ %>
+<div class="container">
+<% bots.map(bots => { %>
+  <div class="verification_box">
+    <form method="POST">
+      <% if(bots.background !== "https://i.imgur.com/lNdMzuW.png") { %>
+        <img src="<%= bots.background %>" alt="Banner" onerror="this.onerror=null; this.src='https://i.imgur.com/lNdMzuW.png';" class="banner">
+        <% }else{ %>
+          <img src="https://i.imgur.com/lNdMzuW.png" style="opacity: 0.1;" alt="Banner" class="banner">
+        <% } %>
+  <div style="padding: 12px;">
+      <a info="What are those!!!" class="badge right" target="_blank" href="/">Position: #<%= numToAdd++ %></a>
+      <img style="cursor: pointer; margin-left: 70px; margin-top: -80px;" onclick="window.open('/bots/<%= bots.botID %>')" src="<%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).displayAvatarURL() : 'https://i.imgur.com/Z1jey6q.png' %>" alt="<%= bots.botName %>" class="bot-icon">
+      <h4 style="cursor: pointer; margin-left: 65px;" onclick="window.open('/bots/<%= bots.botID %>')"><%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).username.length > 15 ? bot.users.cache.get(bots.botID).username.slice(0, 15) + "..." : bot.users.cache.get(bots.botID).username : bots.botName.length > 15 ? bots.botName.slice(0, 15) + "..." : bots.botName  %></h4>
+      <p><%= bots.short %></p>
+      <a info="Invite the Bot" href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/invite" class="realbutton"><i class="fa fa-plus"></i> Invite</a>
+      <% if(bots.website.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-window-restore"></i> Website</button><% }else{ %><a href="<%= bots.website.includes(`http`) ? bots.website : `https://${bots.website}` %>" target="_blank" class="realbutton"><i class="fa fa-window-restore"></i> Website</a><% } %>
+      <% if(bots.support.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-paper-plane"></i> Support</button><% }else{ %><a href="<%= bots.support.includes(`http`) ? bots.support : `https://discord.gg/${bots.support}` %>" target="_blank" class="realbutton"><i class="fa fa-paper-plane"></i> Support</a><% } %>
+    </form>
+  </div>
+</div>
+<% }) %>
+</div>
+<% } %>
+</center>
+</div>
+
+<%
+function getRandomInt(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+%>
+
+</body>
+</html>

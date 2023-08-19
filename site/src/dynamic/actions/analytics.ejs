@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include(headerPath, { 
+        bot, user, path, 
+        description: bots.short, 
+        description2: fetch.username, 
+        title: fetch.username, 
+        main_title: `${fetch.username} | Analytics Bot Page`, 
+        image: fetch.displayAvatarURL() }) %>
+
+<% if(alert) { %><p class="alert"><%= alert %></p> <% }else if(error){ %><p class="error"><%= error %></p> <% } %><br>
+
+<% if(!bots.certified && bots.votes >= 30 && bots.unique_clicks.length >= 30){ %> <p class="alert">Your bot meets our requirements for Certification. <a href="/bots/certification">Apply Now</a></p><% } %>
+
+<center>
+        <h1>Analytics</h1>
+        <hr>
+        <div class="analytics">
+            <h2 style="text-align: center;"><%= fetch.username %> Data <b style="font-size: 15px;">created <%= time(bots.date) %> ago</b></h2>
+            <h4 style="text-align: center; color: grey;"><%= bots.total_uptime %> Total Checks</h4>
+            <strong><h4>Online percentage: <b style="font-size: 18px;"><code><%= (bots.uptime / bots.total_uptime * 100).toFixed(1) %>% (<%= bots.uptime %> online checks)</code></b></h4></strong>
+            <strong><h4>Offline percentage: <b style="font-size: 18px;"><code><%= ((bots.total_uptime - bots.uptime) / bots.total_uptime * 100).toFixed(1) %>% (<%= bots.total_uptime - bots.uptime %> offline checks)</code></b></h4></strong>
+            <strong><h4>Meets minimum (60%): <b style="font-size: 18px;"><%= (bots.uptime / bots.total_uptime * 100).toFixed() >= 60 ? "YES" : "NO" %></b></h4></strong>
+            <h2 style="text-align: center;">Chart Data</h2>
+            <hr>
+            <p id="unique_clicks" style="display: none;"><%= bots.unique_clicks.length %></p>
+            <p id="clicks" style="display: none;"><%= bots.clicks %></p>
+            <p id="invites" style="display: none;"><%= bots.invite_clicks %></p>
+            <p id="votes" style="display: none;"><%= bots.votes %></p>
+            <center><div id="pieChart" class="chart" style="justify-content: center;"></div></center>
+        </div><br>
+        <br><br>
+        <h1>Widgets</h1>
+        <hr>
+        <div class="container">
+            <div style="margin: 10px;">
+            <h3>Small</h3>
+                <img src="https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=small"></img>
+                <br><br>
+                <a id="short_link" class="button" onclick="setClipboard('[![Infinity Bot List Widget](<%= bot.config.domain %>/bots/<%= bots.botID %>/widget?size=small)](https://infinitybots.gg/bots/<%= bots.botID %>)')"><i class='fa fa-file-powerpoint-o'></i> Copy Markdown</a>
+                <a id="short_link" class="button" onclick="setClipboard(`<a href='https://infinitybots.gg/bots/<%= bots.botID %>' title='widget'> <img src='https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=small'></img></a>`)"><i class='fa fa-file-powerpoint-o'></i> Copy HTML</a>
+            </div>
+            <div style="margin: 10px;">
+            <h3>Medium</h3>
+                <img src="https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=medium"></img> 
+                <br><br>
+                <a id="short_link" class="button" onclick="setClipboard('[![Infinity Bot List Widget](<%= bot.config.domain %>/bots/<%= bots.botID %>/widget?size=medium)](https://infinitybots.gg/bots/<%= bots.botID %>)')"><i class='fa fa-file-powerpoint-o'></i> Copy Markdown</a>
+                <a id="short_link" class="button" onclick="setClipboard(`<a href='https://infinitybots.gg/bots/<%= bots.botID %>' title='widget'> <img src='https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=medium'></img></a>`)"><i class='fa fa-file-powerpoint-o'></i> Copy HTML</a>
+            </div>
+            <div style="margin: 10px;">
+            <h3>Large</h3>
+                <img src="https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=large"></img> 
+                <br><br>
+                <a id="short_link" class="button" onclick="setClipboard('[![Infinity Bot List Widget](<%= bot.config.domain %>/bots/<%= bots.botID %>/widget?size=large)](https://infinitybots.gg/bots/<%= bots.botID %>)')"><i class='fa fa-file-powerpoint-o'></i> Copy Markdown</a>
+                <a id="short_link" class="button" onclick="setClipboard(`<a href='https://infinitybots.gg/bots/<%= bots.botID %>' title='widget'> <img src='https://infinitybots.gg/bots/<%= bots.botID %>/widget?size=large'></img></a>`)"><i class='fa fa-file-powerpoint-o'></i> Copy HTML</a>
+            </div>
+          </div>
+    </center>
+
+<br><br><br><br>
+    <!-- Chart Script -->
+<script src="/static/assets/scripts/chart.js"></script>
+<script>
+function setClipboard(value) {
+    var tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Copied!")
+}
+</script>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+
+</body>
+</html>

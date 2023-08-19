@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, This is where the Bot Queue is.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Bot Queue`, 
+    main_title: `${bot.user.username} | Bot Queue`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <h3>Bot Queue</h3>
+  <button class="bigbutton" onclick="window.location.href = '/panel'">Home</button>
+  <% if(user && bot.config.admins.includes(user.id)) { %><button class="bigbutton" onclick="window.location.href = '/panel/certification'">Certification Queue</button><% } %><hr>
+
+<!-- Verification Queue -->
+<h3><i class="fa fa-check"></i> Bot Queue</h3>
+<% if(bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are not currently any Bots in Queue! Enjoy your free time xD</b>
+  <% }else{ %>
+<div class="container">
+<% bots.map(bots => { %>
+  <div class="verification_box">
+    <form method="POST">
+      <% if(bots.background !== "https://i.imgur.com/lNdMzuW.png") { %>
+        <img src="<%= bots.background %>" alt="Banner" onerror="this.onerror=null; this.src='https://i.imgur.com/lNdMzuW.png';" class="banner">
+        <% }else{ %>
+          <img src="https://i.imgur.com/lNdMzuW.png" style="opacity: 0.1;" alt="Banner" class="banner">
+        <% } %>
+        <div style="padding: 12px;">
+          <a info="View Bot Page For Test" class="badge right" target="_blank" href="/bots/<%= bots.botID %>"><i class="fa fa-eye"></i></a>
+          <a info="Invite Bot To Test Server" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fa fa-plus"></i></a>
+          <a info="Invite Bot To Main Server" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fa fa-server"></i></a>
+          <% if (!botCheck) { %>
+            <a info="Bot is Not a Server Member" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fas fa-robot" style="color: red;"></i></a>
+          <% } else { %>
+            <a info="Bot is a Active Server Member" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fas fa-robot" style="color: green;"></i></a>
+          <% } %>
+          <% if (!ownerCheck) { %>
+            <a info="Owner is Not a Server Member" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fas fa-user-circle" style="color: red;"></i></a>
+          <% } else { %>
+            <a info="Owner is a Active Server Member" class="badge right" target="_blank" href="https://discord.com/oauth2/authorize?client_id=<%= bots.botID %>&permissions=0&scope=bot%20applications.commands"><i class="fas fa-user-circle" style="color: green;"></i></a>
+          <% } %>
+          <img style="cursor: pointer; margin-left: 70px; margin-top: -80px;" onclick="window.open('/bots/<%= bots.botID %>')" src="<%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).displayAvatarURL() : 'https://i.imgur.com/Z1jey6q.png' %>" alt="<%= bots.botName %>" class="bot-icon">
+          <h4 style="cursor: pointer; margin-left: 65px;" onclick="window.open('/bots/<%= bots.botID %>')"><%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).username.length > 15 ? bot.users.cache.get(bots.botID).username.slice(0, 15) + "..." : bot.users.cache.get(bots.botID).username : bots.botName.length > 15 ? bots.botName.slice(0, 15) + "..." : bots.botName  %></h4>
+          <textarea name="reason" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="Note: <%= bots.note %>" draggable="false" required></textarea>
+          <button name="deny" value="<%= bots.botID %>" class="queue_button deny"><i class="fa fa-trash"></i> Deny</button>
+          <button name="approve" value="<%= bots.botID %>" class="queue_button approve"><i class="fa fa-check"></i> Approve</button>
+    </form>
+  </div>
+</div>
+<% }) %>
+</div>
+<% } %>
+</center>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

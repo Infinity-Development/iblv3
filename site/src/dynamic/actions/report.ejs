@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Report bot with an good evidence to take a very fast action!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Report Bot`, 
+    main_title: `${bot.user.username} | Report Bot`, 
+    image: "none"  }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<!-- Vote bot -->
+<center>
+  <img src="<%= fetch.displayAvatarURL() %>" alt="Infinity Bot List" style="width: 180px; border-radius: 100px; animation: shadow 2s infinite;"><br>
+  <h1><%= fetch.username %></h1>  <hr>
+</center>
+<div class="left">
+<form method="POST">
+  <p><i class="fa fa-user-secret"></i> Provide some information about the report with proof (Note: This report can be seen by all of the Infinity Bots Staff): </p>
+  <br>
+  <p><i class="fa fa-at"></i> For immediate or Private concerns please <a href="mailto:infinitybotlist@gmail.com">Contact</a> our Trust and Safety team.</p>
+  <textarea id="long" class="textarea" style="height: 150px;" maxlength="2000" min="100" onkeyup="limitChars('long', 2000, 'limits', 100)" name="report_desc" placeholder="i.e The bot sent nsfw images in sfw bot testing channels!"></textarea>
+  <p class="note" id="limits">Max characters is 2k, Minimum characters is 100</p>
+<button value="report bot" class="realbutton" name="submit"><i class="fa fa-user-secret"></i> Report</button>
+</form>
+</div>
+<script>
+  function limitChars(textid, limit, infodiv, less) {
+    var text = $('#'+textid).val(); 
+    var textlength = text.length;
+    if(textlength > limit) {
+        $('#' + infodiv).html('- You cannot write more then '+limit+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    if(textlength < less) {
+        $('#' + infodiv).html('- You cannot write less then '+less+' characters!');
+        $('#'+textid).val(text.substr(0,limit));
+        return false;
+    }
+    else {
+        $('#' + infodiv).html('- You have '+ (limit - textlength) +' characters left.');
+        return true;
+    }
+}
+
+// Bind the function to ready event of document. 
+$(function(){
+    $('#comment').keyup(function(){
+        limitChars('comment', 140, 'charlimitinfo');
+    })
+});
+
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

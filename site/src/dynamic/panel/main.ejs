@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, This is the Staff Panel only the Staff Team can access", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Staff Panel`, 
+    main_title: `${bot.user.username} | Staff Panel`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>  
+  <h3>Staff Panel</h3>
+  <button class="bigbutton" onclick="window.location.href = '/panel/queue'">Verification Queue</button>
+  <% if(user && bot.config.admins.includes(user.id)) { %><button class="bigbutton" onclick="window.location.href = '/panel/certification'">Certification Queue</button><% } %>
+  <hr>
+<div class="container">
+ <!-- Delete Bot Request -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-trash-o"></i> Delete Bot</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-trash"></i> Place BotID for deletion request</h4>
+    <input name="botID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <textarea name="reason" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="Bot mass dm all people on server..." draggable="false" required></textarea>
+    <button name="submit" value="delete bot" class="realbutton"><i class="fa fa-trash"></i> Delete</button>
+  </form>
+</div>
+</div>
+<% } %>
+<!-- UnCertify Bot -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-certificate"></i> UnCertification</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-trash"></i> Place BotID for Uncertify request</h4>
+    <input name="uncertify_ID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <textarea name="uncertify_reason" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="Got certified with wrong.." draggable="false" required></textarea>
+    <button name="uncertify_submit" value="uncertify bot" class="realbutton"><i class="fa fa-trash"></i> Uncertify</button>
+  </form>
+</div>
+</div>
+<% } %>
+<!-- Force Transfer -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+  <div>
+  <h3><i class="fa fa-random"></i> Force Transfer</h3>
+  <div class="delete_box">
+    <form method="POST">
+      <h4><i class="fa fa-trash"></i> Place botID and userID for force transfer.</h4>
+      <input name="transfer_botID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278 (botID)" required/>
+      <input name="transfer_userID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 780079091172900884 (userID)" required/>
+      <p style="text-align: left; margin-left: 40px;">
+        By transfering bot ownership:
+        <br>
+        1. Owner will no longer have access to manage bot.
+        <br>
+        2. Additional Owners will be reseted.
+        <br>
+        3. Roles will be changed for the old and new owner.
+      </p>
+      <button name="transfer_submit" value="uncertify bot" class="realbutton"><i class="fa fa-random"></i> Transfer</button>
+    </form>
+  </div>
+  </div>
+  <% } %>
+<!-- Staff Bot Request -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-gavel"></i> Staff Bot Request</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-gavel"></i> Place BotID to make bot staff or not</h4>
+    <input name="staff_ID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <p style="text-align: left; margin-left: 40px;">
+      By making bot staff you will give him:
+      <br><br>
+      1. Badge at from page and in his bot page.
+      <br>
+      2. Some Permissions at server.
+      <br>
+      3. New role at server.
+      <br>
+      And vice versa in remove staff
+    </p>
+    <button name="staff_submit" value="Make bot staff" class="realbutton"><i class="fa fa-plus"></i> Add Staff</button>
+    <button name="unstaff_submit" value="Make bot not staff" class="realbutton"><i class="fa fa-trash"></i> Remove Staff</button>
+  </form>
+</div>
+</div>
+<% } %>
+<!-- VOTE COUNT UPDATE -->
+<% if(user && bot.config.root.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-thumbs-up"></i> Override Vote Count</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fas fa-robot"></i> Bot ID</h4>
+    <input name="bot_to_fix" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <h4><i class="fas fa-arrow-circle-up"></i> New Vote Count</h4>
+    <input name="vote_count" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 100" required/>
+    <p style="text-align: left; margin-left: 40px;">
+      Update the Vote Count for a Bot pretty straight forward!
+    </p>
+    <button name="bot_votes_fix" value="Force Update the Bots Votes" class="realbutton"><i class="fa fa-plus"></i> Update Count</button>
+  </form>
+</div>
+</div>
+<% } %>
+<!-- User Vote Ban Request -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-gavel"></i> User Vote Ban</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-gavel"></i> Place a User ID to Add or Remove</h4>
+    <input name="banned_user_ID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <p style="text-align: left; margin-left: 40px;">
+      By Vote Banning a User you will:
+      <br><br>
+      1. Prevent them from voting for ANY Bots.
+      <br>
+      2. Announce in Server Logs that they have been banned.
+      <br>
+      And vice versa for Un-Vote Ban
+    </p>
+    <button name="user_voteban_submit" value="Add user to Vote Ban" class="realbutton"><i class="fa fa-plus"></i> Vote Ban</button>
+    <button name="user_unvoteban_submit" value="Remove a User from Vote Ban" class="realbutton"><i class="fa fa-trash"></i> Un-Vote Ban</button>
+  </form>
+</div>
+</div>
+<% } %>
+<!-- Bot Vote Ban Request -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-gavel"></i> Bot Vote Ban</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-gavel"></i> Place a Bot ID to Add or Remove</h4>
+    <input name="banned_bot_ID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <p style="text-align: left; margin-left: 40px;">
+      By Vote Banning a Bot you will:
+      <br><br>
+      1. Prevent them from recieving any Votes.
+      <br>
+      2. Announce in Server Logs that they have been banned.
+      <br>
+      And vice versa for Un-Vote Ban
+    </p>
+    <button name="bot_voteban_submit" value="Add bot to Vote Ban" class="realbutton"><i class="fa fa-plus"></i> Vote Ban</button>
+    <button name="bot_unvoteban_submit" value="Remove a bot from Vote Ban" class="realbutton"><i class="fa fa-trash"></i> Un-Vote Ban</button>
+  </form>
+</div>
+</div>
+<% } %>
+  <!-- Remove Bot from Premium -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-diamond"></i> Remove Premium</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-diamond"></i> Place BotID for premium removal</h4>
+    <input name="premiumID" style="border-radius: 3px; width: 400px; margin: 10px; outline: none" placeholder="i.e 7898288524564278" required/>
+    <p style="text-align: left; margin-left: 40px;">
+      By removing a bot from premium:
+      <br><br>
+      1. The bot will never have access to front page promotion.
+      <br>
+      2. If the bot has a Premium Badge Will be removed!
+      <br>
+      3. Will revert it back to just a normal bot on the site.
+      <br>
+    </p>
+    <button name="premium_remove" value="Remove bot from premium" class="realbutton"><i class="fa fa-trash"></i> Remove</button>
+  </form>
+</div>
+</div>
+<% } %>
+     <!-- Edit or Add Premium Subscribe to Bot -->
+<% if(user && bot.config.admins.includes(user.id)) { %>
+<div>
+<h3><i class="fa fa-diamond"></i> Edit or Add Premium</h3>
+<div class="delete_box">
+  <form method="POST">
+    <h4><i class="fa fa-diamond"></i> Edit or Add Premium to Bot</h4>
+    <input name="premiumID2" style="border-radius: 3px; width: 400px; margin: 10px; outline: none; height: 30px;" placeholder="i.e 7898288524564278" required/>
+    <p>Subscribe Period for Bot:</p>
+    <select name="premium_sub" style="border-radius: 3px; width: 400px; margin: 10px; outline: none; height: 30px;" required/>
+    <option value="None" disabled> Select one...</option>
+    <option value="1 year"> 1 Year</option>
+    <option value="30 days"> 1 Month</option>
+    <option value="7 days"> 1 Week</option>
+    <option value="1 days"> 1 Day</option>
+    <option value="1 hour"> 1 Hour</option>
+    <option value="other">Custom Select At Input</option>
+    </select>
+    <input name="premium_sub2" style="border-radius: 3px; width: 400px; margin: 10px; outline: none; height: 30px;" placeholder="i.e 30 days"/>
+    <br><br>
+    <button name="premium_submit" value="add premium to bot" class="realbutton"><i class="fa fa-plus"></i> Submit</button>
+  </form>
+</div>
+</div>
+<% } %>
+</div>
+
+  <!-- Staff Members -->
+  <hr>
+  <h4>Staff Members</h4>
+<div class="container">
+  <% for(i of staffMembers){%>
+  <div class="staff">
+    <strong>
+      <b style="cursor: pointer; font-size: 18px;" info="<%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).presence.status : 'offline' %>"><%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).tag : 'None#0000' %></b>
+    </strong>
+    <div class="container">
+        <img style="cursor: pointer; border-radius: 10px; width: 150px;" onclick="window.location.href = '/users/<%= i.staffMember %>'" alt="<%= i.staffMember %>" src="<%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).displayAvatarURL() : 'https://i.imgur.com/x0LCfAh.png' %>" style="border-radius: 4px;">
+      <div style="margin: 10px;">
+        <p>Denied Bots: <%= i.staffData.new_staff_stats.get("denied_bots") %></p>
+        <p>Approved Bots: <%= i.staffData.new_staff_stats.get("approved_bots") %></p>
+        <p>Certified Bots: <%= i.staffData.new_staff_stats.get("certified_bots") %></p>
+      </div>
+  </div>
+</div>
+  <% } %>
+</div>
+</center>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

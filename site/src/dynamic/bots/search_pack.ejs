@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Search for your favourite bot!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Search Packs`, 
+    main_title: `${bot.user.username} | Search Packs `, 
+    image: "none" }) %>
+<body>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <h1><i class="fa fa-search"></i> Search Engine</h1>
+  <input class="searchinput" placeholder="Moderation with reaction roles" id="search_value"/>
+  <div class="container" style="max-width: 1200px;" id="output"></div>
+  <hr>
+<!-- Search Results -->
+  <% if(pack.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are no any results!</b>
+    <% }else{ %>
+<h3><i class="fa fa-search"></i> Search Results</h3>
+<div style="animation: start 2s;">
+  <div class="container">
+      <% for(i = 0; i < pack.length; i++){ %>
+        <%- include(dynamic + "/others/pack", {pack: pack[i]}) %>
+      <% } %>
+    <% } %>
+  </div>  
+</div>
+</center>
+<!-- Search Script -->
+<script src="/static/assets/scripts/search_pack.js"></script>
+
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

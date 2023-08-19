@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Search our list of packs to find one to add new life with bots to your server!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Packages`, 
+    main_title: `${bot.user.username} | Packages`, 
+    image: "none" }) %>
+<body>
+
+
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <input class="searchinput" placeholder="Moderation with reaction roles" id="search_value"/>
+  <div class="container" style="max-width: 1200px;" id="output"></div>
+  <h3>Find a bot pack for a quick kick-start to your server!</h3>
+  <hr>
+  <!-- Packs -->
+  <% if(packs.length === 0) { %>
+    <b><i class="fa fa-warning"></i> Wrong page, there are no packs here!</b>
+    <% }else{ %>
+<div style="animation: start 2s;">
+  <div class="container" style="max-width: 1450px;">
+      <% for(i = 0; i < packs.length; i++){ %>
+         <%- include(dynamic + "/others/pack", {pack: packs[i]}) %>
+      <% } %>
+    <% } %>
+  </div></div><br>
+  <% if(packs.length == 12) { %> 
+    <button class="pages" id="prev" onclick="prev()"><i class="fa fa-arrow-circle-left"></i> Previous</button> 
+    <button class="pages" onclick="next()">Next <i class="fa fa-arrow-circle-right"></i></button> 
+    <% }else if(packs.length < 12){ %> 
+    <button class="pages" id="prev" onclick="prev()"><i class="fa fa-arrow-circle-left"></i> Previous</button> 
+    <% } %>
+</center>
+<!-- Search Script -->
+<script src="/static/assets/scripts/search_pack.js"></script>
+<!-- Prev & Next Page Script -->
+<script src="/static/assets/scripts/pages.js"></script>
+
+</body>
+<hr>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

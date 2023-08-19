@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Users page", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | ${member.username}`, 
+    main_title: `${bot.user.username} | ${member.username}`, 
+    image: member.displayAvatarURL({dynamic: true})}) %>
+<body>
+
+<center>
+  <img src="<%= member.displayAvatarURL({dynamic: true}) %>" alt="Infinity Bot List" class="user-icon" style="box-shadow: 0.2rem 0.8rem 1.6rem rgba(0, 0, 0, 0.418); animation: shadow 3s infinite;">
+  <% if(list_member && list_member.nickname !== "none") { %>
+  <div class="container">
+    <h1>@<%= list_member.nickname %></h1>
+    <h4 style="color: grey; margin-top: 20px; padding: 5px"><%= member.tag %></h4>
+  </div>
+  <% }else{ %> 
+    <h2><%= member.tag %></h2>
+  <% } %>
+  <%- include(dynamic + "/others/badges", {member: list_member}) %>
+  <% if (servMember) { %>
+     <b class="badge users"><i class="fa fa-user"></i> Member</b><br><br>
+  <% } %>
+  <% if(list_member) { %>
+      <b><%= list_member.about %></b><br>
+      <button onclick="window.location.href='<%= list_member.website %>'" class="card_button"><i class="fa fa-window-restore"></i> Website</button>
+      <button onclick="window.location.href='<%= list_member.github %>'" class="card_button"><i class="fa fa-code"></i> Github</button>
+      <% }else{ %><b>This user prefers to be a enigma and has not set a bio!</b>
+  <% } %>
+  <hr>
+<!-- User Bots -->
+<h1><%= member.username %>'s Bots</h1>
+  <% if(bots.length === 0 && additionalbots.length === 0) { %>
+    <b>Nothing to see here chief! You should tell this user to add a bot ;)</b>
+    <% }else{ %>
+<div style="animation: start 2s;">
+  <div class="container">
+      <% for(i = 0; i < bots.length; i++){ %>
+        <%- include(dynamic + "/others/botcard", {bots: bots[i]}) %>
+      <% } %>
+    <% for(i = 0; i < additionalbots.length; i++){ %>
+      <%- include(dynamic + "/others/botcard", {bots: additionalbots[i]}) %>
+    <% } %>
+  <% } %>
+</div>
+  </div>
+<hr>
+<!-- User Packs -->
+<h1><%= member.username %>'s Packages</h1>
+<% if(packs.length === 0) { %>
+  <b>Nothing to see here chief!</b>
+  <% }else{ %>
+<div style="animation: start 2s;">
+<div class="container">
+    <% for(i = 0; i < packs.length; i++){ %>
+      <%- include(dynamic + "/others/pack", {pack: packs[i]}) %>
+    <% } %>
+  <% } %>
+</div>  
+</div>
+</center>
+</body>
+<hr>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

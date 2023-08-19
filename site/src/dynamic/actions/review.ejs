@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, You like bot? or found bug?, Review the bot now!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Review Bot`, 
+    main_title: `${bot.user.username} | Review Bot`, 
+    image: "none" }) %>
+<body>
+
+<!-- Alert -->
+<% if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<!-- Review bot -->
+<center>
+  <img src="<%= fetch.displayAvatarURL() %>" alt="Infinity Bot List" style="width: 180px; border-radius: 100px; animation: shadow 2s infinite;"><br>
+  <h1>Write review for <strong><%= fetch.username %></strong></h1>
+</center><hr>
+<form method="POST">
+<div class="left">
+<p><i class="fa fa-star"></i> Select your star rate: </p>
+        <div class="rating">
+            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" /><label for="star5">☆</label>
+            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" /><label for="star4">☆</label>
+            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" /><label for="star3">☆</label>
+            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" /><label for="star2">☆</label>
+            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" /><label for="star1">☆</label>
+        </div><br><br><b id="result">0 Stars</b>
+<p><i class="fa fa-thumbs-up"></i> Select your review rate: </p>
+  <select class="input" name="rate">
+    <datalist>
+        <option value="positive" style="color: rgb(75, 173, 62);">Positive Review</option>
+        <option value="negative" style="color: rgb(207, 52, 24);">Negative Review</option>
+      </datalist>
+    </select>
+<p><i class="fa fa-edit"></i> Write your review content: </p>
+    <textarea class="textarea" name="content" style="height: 150px;" placeholder="This bot is powerful I love it, I recommend using it!" required></textarea>
+    <br>
+    <button class="realbutton" name="add_review" value="Send review!"><i class="fa fa-send"></i> Send Review</button>
+</form>
+</div>
+<script>
+  $(document).ready(function(){
+    $(".rating input:radio").attr("checked", false);
+
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+      function(){
+        document.getElementById("result").innerHTML = `${this.value} Stars`
+    }); 
+});
+</script>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

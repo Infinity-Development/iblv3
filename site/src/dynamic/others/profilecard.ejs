@@ -1,0 +1,32 @@
+<div class="bot_box">
+  <% if(bots.background !== "https://i.imgur.com/lNdMzuW.png") { %>
+    <img src="<%= bots.background %>" alt="Banner" onerror="this.onerror=null; this.src='https://i.imgur.com/lNdMzuW.png';" class="banner">
+    <% }else{ %>
+      <img src="https://i.imgur.com/lNdMzuW.png" style="opacity: 0.1;" alt="Banner" class="banner">
+    <% } %>
+  <div style="padding: 12px;">
+      <b info="<%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).presence.status.toUpperCase() : OFFLINE %>" class="status <%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).presence.status : offline %>" style="font-size: 12px; float: left;"><i class="fa fa-circle" style="font-size: 12px;"></i></b>
+      <% if(bots.type !== "denied"){ %><a info="Edit Bot" class="badge right" href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/edit"><i class="fa fa-pencil"></i></a><% } %>
+      <% if(bots.type == "denied"){ %><a info="Resubmit Bot" class="badge right" href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/resubmit"><i class="fa fa-refresh"></i></a><% } %>
+      <img style="cursor: pointer; margin-top: -70px;" alt="<%= bots.botName %>" onclick="window.location.href = '/bots/<%= bots.certified ? bots.vanity : bots.botID %>'" src="<%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).displayAvatarURL() : 'https://i.imgur.com/Z1jey6q.png' %>" class="<%= bots.nsfw ? 'bot-icon blur' : 'bot-icon profile' %>">
+      <h3 style="cursor: pointer; margin-left: 18px;" onclick="window.location.href = '/bots/<%= bots.certified ? bots.vanity : bots.botID %>'"><%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).username.length > 15 ? bot.users.cache.get(bots.botID).username.slice(0, 15) + "..." : bot.users.cache.get(bots.botID).username : bots.botName.length > 15 ? bots.botName.slice(0, 15) + "..." : bots.botName  %></h3>
+      <div class="container" style="height: 20px; margin: 0px; padding: 0px;">
+        <div><b class="badge users" style="font-size: 13px; padding: 3px;"><%= bots.servers === 0 ? "N/A" : formatNumbers(bots.servers) %> Servers</b></div>
+        <div><b class="badge users" style="font-size: 13px; padding: 3px;"><%= formatNumbers(bots.votes) %> Votes</b></div>
+        <div><b class="badge users" style="font-size: 13px; padding: 3px;"><%= formatNumbers(bots.invite_clicks || 0) %> Invites</b></div>
+      </div>
+      <p class="shortdesc" style="text-align: center; height: 50px; overflow: auto;"><%= bots.short %></p>
+      <p class="tags"><%= bots.tags.length > 40 ? `${bots.tags.slice(0, 40)}...` : bots.tags %></p>
+      <div class="container" style="height: 3px; margin: 0px; padding: 0px;">
+        <% if(bots.nsfw) { %> <div><a class="badge ach" href="/bots/add"><i class="fa fa-user-secret"></i> NSFW</a></div><% } %> 
+        <% if(bots.staff) { %> <div><b class="badge ach"><i class="fa fa-gavel"></i> Staff</b></div> <% } %>
+        <% if(bots.certified) { %><div><a class="badge ach" href="/bots/certification"><i class="fa fa-certificate"></i> Certified</a></div> <% } %>
+        <% if(bots.type == "approved") { %><div><a class="badge ach" href="/bots/add"><i class="fa fa-check-circle"></i> Approved</a></div> <% } %>
+        <% if(bots.premium) { %><div><a class="badge ach" href="/premium"><i class="fa fa-diamond"></i> Premium</a></div><% } %>
+      </div>
+      <br>
+      <button onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/'" class="card_button" style="float: left;">View</button>
+      <button onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/vote'" class="card_button">Vote</button>
+      <button onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/invite'" class="card_button" style="float: right;">Invite</button>
+  </div>  
+</div>

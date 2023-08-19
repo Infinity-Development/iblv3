@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bot Content -->
+<head>
+    <%- include(headerPath, { 
+        bot, user, path, 
+        description: `${bots.short}`, 
+        description2: `${bots.short}`, 
+        title: `${fetch.username}`, 
+        main_title: `${fetch.username}`,
+        image: fetch.displayAvatarURL({ size: 128, dynamic: true }) }) %>
+</head>
+<% if(alert) { %>
+  <p class="alert">
+    <%= alert %>
+</p> 
+<% }else if(error){ %>
+  <p class="error">
+    <%= error %>
+</p> 
+<% } %>
+<br>
+
+<body>
+
+    <center>    
+        
+    <% let add_owners = [bots.main_owner];
+    bots.additional_owners.map(owner => add_owners.push(owner)) %>
+
+        <% if(bots.type == "pending"){ %> <p class="error">The bot is not approved, We are awaiting long bots queues, Please be patient. You can check the bots position in queue <a href="/queue">here</a></p><% } %>
+        <% if(bots.type == "denied"){ %> <p class="error">This bot is denied or archived, You can resubmit bot to queue to get added again</p><% } %>
+
+                <img src="<%= fetch.displayAvatarURL() %>" alt="<%= fetch.username %>" class="shadow" style="width: 180px; border-radius: 100px; animation: shadow 2s infinite;">
+            <div class="container">
+                <h1><%= fetch.tag %></h1>
+            </div>
+                <p>Prefix: <%= bots.prefix %></p>
+                <p><%= bots.short %></p>
+
+            <div style="margin: 10px;">
+                <% if(bots.nsfw) { %><b class="badge users"><i class="fa fa-user-secret"></i> NSFW</b><% } %>
+                <% if(bots.certified) { %><b class="badge users"><i class="fa fa-certificate"></i> Certified</b><% } %>
+                <% if(bots.staff) { %><b class="badge users"><i class="fa fa-gavel"></i> Staff</b><% } %>
+                <% if(bots.premium) { %><b class="badge users"><i class="fa fa-diamond"></i> Premium</b><% } %>
+                <% if(bots.type == "approved") { %><b class="badge users"><i class="fa fa-check-circle"></i> Approved</b><% } %>
+            </div>
+
+            <div class="container" style="max-width: 900px;">
+                <a id="short_link" class="realbutton" onclick="setClipboard('<%= bot.config.domain_short %>/<%= bots.certified ? bots.vanity : bots.botID %>')"><i class='fa fa-file-powerpoint-o'></i> Copy Short Link</a>
+                <a href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/review" class="realbutton"><i class="fa fa-edit"></i> Review</a>
+                <a id="WidgetBtn" class="realbutton"><i class="fa fa-sticky-note"></i> Widgets</a>
+                <a href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/vote" class="realbutton"><i class="fa fa-level-up"></i> Vote</a>
+                <a href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/invite" class="realbutton"><i class="fa fa-plus"></i> Invite</a>
+                <% if(bots.github.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-code"></i> Github</button><% }else{ %><a href="<%= bots.website.includes(`http`) ? bots.github : `https://${bots.github}` %>" class="realbutton"><i class="fa fa-code"></i> Github</a><% } %>
+                <% if(bots.website.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-window-restore"></i> Website</button><% }else{ %><a href="<%= bots.website.includes(`http`) ? bots.website : `https://${bots.website}` %>" target="_blank" class="realbutton"><i class="fa fa-window-restore"></i> Website</a><% } %>
+                <% if(bots.support.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-paper-plane"></i> Support Server</button><% }else{ %><a href="<%= bots.support.includes(`http`) ? bots.support : `https://discord.gg/${bots.support}` %>" target="_blank" class="realbutton"><i class="fa fa-paper-plane"></i> Support Server</a><% } %>
+                <% if(bots.donate.toLowerCase() == 'none') { %><button class="realbutton" disabled><i class="fa fa-money"></i> Donate</button><% }else{ %><a href="<%= bots.donate.includes(`http`) ? bots.donate : `https://${bots.donate}` %>" target="_blank" class="realbutton"><i class="fa fa-money"></i> Donate</a><% } %>
+                <a href="/bots/<%= bots.certified ? bots.vanity : bots.botID %>/report" class="realbutton"><i class="fa fa-user-secret"></i> Report</a>
+            </div>
+            <div id="Widgets_window" class="fullscreen">
+              <div class="widget_screen">
+               <span class="close" style="margin: 2px;" onclick="hide_widgets()">&times;</span>
+                <h1><%= fetch.username %> Widgets</h1>
+                <a class="realbutton" style="padding: 10px;" onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/widget?size=small'"><i class="fa fa-sticky-note"></i> Small Widget</a>
+                <br /><br/><br /> 
+                <a style="padding: 10px;" onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/widget?size=medium'" class="realbutton"><i class="fa fa-sticky-note"></i> Medium Widget</a>
+                <br /><br/><br /> 
+                <a style="padding: 10px;" onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/widget?size=large'" class="realbutton"><i class="fa fa-sticky-note"></i> Large Widget</a>
+              </div>
+            </div>
+    <br>
+    <!-- Bot Page -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4097478310310582"
+         data-ad-slot="7610259459"
+         data-ad-format="horizontal"
+         data-full-width-responsive="false"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+        </center>
+    <hr>
+    <center><h3>Stats <b style="font-size: 12px;" class="status <%= fetch.presence.status %>"><i class="fa fa-circle" style="font-size: 12px;"></i> <%= fetch.presence.status.toUpperCase() %></b></h3></center>
+    <div class="left">
+        <p>Others:</p>
+        <div class="container" style="align-items: left; justify-content: left;">
+                <b class="badge users"><i  class="fa fa-server"></i> <%= bots.servers === 0 ? "N/A" : bots.servers %> Servers</b>
+                <b class="badge users"><i  class="fa fa-sitemap"></i> <%= bots.shards === 0 ? "N/A" : bots.shards %> Shards</b>
+                <b class="badge users"><i  class="fa fa-level-up"></i> <%= bots.votes.toLocaleString() %> Votes</b>
+                <b class="badge users"><i  class="fa fa-file-code-o"></i> Library: <%= bots.library %></b>
+        </div>
+        <p>Tags:</p>
+        <div class="container" style="align-items: left; justify-content: left;">
+                <% bots.tags.split(", ").map(tag => { %> 
+                <a href="/search?q=<%= tag.toLowerCase() %>" style="text-decoration: none;" class="badge users"><i class="fa fa-tag"></i> <%= tag %></a> 
+                <% }) %>
+        </div>
+        <p>Owners:</p>
+    <div class="container" style="align-items: left; justify-content: left;">
+        <% for(i = 0; i < owners.length; i++){ %>
+            <% if(owners[i] !== "") { %>
+            <div style="margin: 5px;">
+                <img onclick="window.location.href='/users/<%= owners[i] %>'" alt="<%= owners[i] %>" src="<%= bot.users.cache.get(owners[i]) ? bot.users.cache.get(owners[i]).displayAvatarURL({dynamic: true}) : 'https://i.imgur.com/Z1jey6q.png' %>" style="width: 40px; border-radius: 100px; cursor: pointer;">
+                <a href="/users/<%= owners[i] %>" style="text-decoration: none;"><%= bot.users.cache.get(owners[i]) ? bot.users.cache.get(owners[i]).tag : "GUEST#0000" %></a>
+            </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+    <% if(user && add_owners.includes(user.id)) { %>
+        <div>
+    <center>
+        <hr>
+            <h3>Owner Section <b style="font-size: 12px; color: rgb(135, 76, 230);"><i class="fa fa-circle"></i> PRIVATE</b></h3>
+        <div class="container">
+                <a onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/analytics'" class="realbutton" style="margin: 8px;"><i class="fa fa-cog"></i> Analytics</a>
+            <% if(bots.type !== "denied") { %>
+                <a onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/edit'" class="realbutton" style="margin: 8px;"><i class="fa fa-pencil"></i> Manage Bot</a>
+            <% }else{ %>
+                <a onclick="window.location.href='/bots/<%= bots.certified ? bots.vanity : bots.botID %>/resubmit'" class="realbutton" style="margin: 8px;"><i class="fa fa-refresh"></i> Resubmit Bot</a>
+            <% } %>
+            <form method="POST">
+               <button name="token" value="Token for <%= fetch.username %>"  class="realbutton"><i class="fa fa-eye"></i> API Token</button>
+               <button name="generate_token" value="Generate token for <%= fetch.username %>" class="realbutton"><i  class="fa fa-cogs"></i> Generate Token</button>
+            </div>                
+               <% if(user && user.id === bots.main_owner) { %> 
+                <label class="switch">
+                    <input type="checkbox" onclick="open_zone()" id="open_zone2">
+                    <span class="slider round"></span>
+                </label>
+                  <b>By checking this box the dangerzone will be displayed, be careful.</b><br>
+            <div id="dangerzone" style="display: none; animation: 0.7s ease 0s 1 normal none running fadeIn;">
+                <p style="color: red;">Delete Bot: By clicking delete, bot will be deleted from bot list with no return unless you re add the bot!</p>
+                <p style="color: red;">Archive Bot: By clicking archive, bot will be unlisted (denied) from bot list, to re add it you will need to resubmit.</p>
+            <div class="container">  
+                <button name="delete" value="Delete <%= fetch.username %>" class="realbutton"><i  class="fa fa-trash"></i> Delete Bot</button> 
+                <button name="archive" value="Archive <%= fetch.username %>" class="realbutton"><i  class="fa fa-trash"></i> Archive Bot</button> 
+            </div>
+        </div>
+                <% } %>
+            <div style="margin-right: 9px;">
+            <b style="font-size: 18px;">Enable announce feature:</b>
+            <label class="switch">
+                <% if(bots.announce) { %><input type="checkbox" id="announce_box" name="announce_check" onclick="announce_area()" checked><% }else{ %><input type="checkbox" id="announce_box" onclick="announce_area()" name="announce_check"><% } %>
+            <span class="slider round"></span>
+            </label>
+            </div>
+            <div style="display: none;" id="announce_area">
+            <textarea class="textarea" name="announce_msg" placeholder="We are working on bot now!"><%= bots.announce_msg %></textarea>
+            <p class="note">- Add an announcement message about new featues for your bot!, Supports markdown and HTML</p>
+            </div>
+            <button class="realbutton" name="announce" value="add announce message">Save Annouce</button>
+            <script>
+                function announce_area(){
+                    if(document.getElementById("announce_box").checked) document.getElementById("announce_area").style.display = "block";
+                    else document.getElementById("announce_area").style.display = "none";
+                }
+                if(document.getElementById("announce_box").checked) document.getElementById("announce_area").style.display = "block";
+                else document.getElementById("announce_area").style.display = "none";
+            </script>
+            </form>
+    </center>
+</div>
+    <% } %>
+    <hr>
+    <center><h3>Information <b style="font-size: 12px; color: green;"><i class="fa fa-circle"></i> BOT</b></h3></center>
+    <% if(bots.announce) { %>
+    <center>
+        <div class="announce_box">
+            <h4><i class="fa fa-bullhorn"></i> Announcements</h4><hr style="margin: 0px;"><br>
+            <span class="<%= isUrl ? '' : 'markdown-body' %>" style="font-size: 16px;"><%- announce_msg %></span>
+        </div>
+    </center>
+    <% } %>
+    <center>
+    <div class="box">
+        <% if(bots.type == "approved"){ %><b class="note">Approved <%= time(bots.date) %> ago</b><% } %>
+        <center><h3><i class="fa fa-pencil"></i> Long Description</h3></center><hr>
+        <span translate="yes" class="<%= isUrl ? '' : 'markdown-body' %>" style="font-size: 16px;"><%- desc %></span>
+    </div>
+    </center>
+    <hr>
+<center>
+    <!-- Reviews -->
+    <h3><i class="fa fa-edit"></i> Bot Reviews</h3>
+<% if(reviews.length === 0){ %>
+    <p>There are no reviews for this bot!</p>
+<% }else{ %>
+    <b>
+        <div class="container" style="padding: 2px;">
+        <b id="average"><%= getAverage(reviews).toFixed(1) %></b><strong style="color: grey; margin: 3px;">/5.0</strong>
+        <% for(i = 0; i < Math.floor(getAverage(reviews)); i++){ %><i style="color: gold; margin: 2px;" class="fa fa-star"></i><% } %>
+        <% for(i = 0; i < 5 - Math.floor(getAverage(reviews)); i++){ %><i style="margin: 2px;" class="fa fa-star"></i><% } %>
+        </div>
+    </b>
+    <b>Based On </b><b id="reviews"><%= reviews.length %> Reviews!</b>
+    <div class="container" style="align-items: left; justify-content: left; margin: 50px;">
+   <% reviews.map(review => { %>
+        <%- include(dynamic + "/others/review_card", {review}) %>
+    <% }) %>
+  </div>
+<% } %>
+</div>
+</center>
+  <!-- Review Script -->
+  <script src="/static/assets/scripts/review.js"></script>
+  <!-- Scripts -->
+<script>
+document.getElementById("WidgetBtn").onclick = function() {
+  document.getElementById("Widgets_window").style.display = "block";
+}
+
+document.getElementsByClassName("close")[0].onclick = function() {
+  document.getElementById("Widgets_window").style.display = "none";
+}
+window.onclick = function(event) {
+ if (event.target == document.getElementById("Widgets_window")) {
+  document.getElementById("Widgets_window").style.display = "none";
+}else if (event.target == document.getElementById("announcement")) {
+          document.getElementById("announcement").style.display = "none";
+    }
+}
+function hide_widgets() {
+  document.getElementById("Widgets_window").style.display = "none";
+}
+  function open_zone(){
+        if(document.getElementById("open_zone2").checked) document.getElementById("dangerzone").style.display = "block";
+        else document.getElementById("dangerzone").style.display = "none";
+  }
+  function setClipboard(value) {
+    var tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    document.getElementById("short_link").innerHTML = "Copied!"
+    setTimeout(() => {
+        document.getElementById("short_link").innerHTML = "<i class='fa fa-file-powerpoint-o'></i> Copy Short Link"
+    }, 2000)
+}
+
+$('#token').click(function() {
+   Snackbar.show({text: `Your API Token: ${bots.token}`});
+});
+
+</script>
+
+  
+  
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Main Content
+index.js @TheRealToxicDev
+functions.js @DexterTheDev
+config.js @TheRealToxicDev
+checker.js @DexterTheDev
+uptime.js @DexterTheDev
+
+# Handlers
+structures/command.js @TheRealToxicDev
+structures/event.js @TheRealToxicDev

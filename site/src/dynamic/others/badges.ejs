@@ -1,0 +1,8 @@
+<% if(member){ %>
+    <% if(member.certified) { %><b class="badge users"><i class="fa fa-certificate"></i> Certified Dev</b><% } %>
+    <% if(member.developer) { %><b class="badge users"><i class="fa fa-vcard-o"></i> Bot Developer</b><% } %>
+    <% if(member.root) { %><b class="badge users"><i class="fa fa-crown"></i> Owner</b><% } %>
+    <% if(member.staff) { %><b class="badge users"><i class="fa fa-gavel"></i> Website Mod</b><% } %>
+    <% if(member.admin) { %><b class="badge users"><i class="fa fa-user-secret"></i> Staff Manager</b><% } %>
+    <% if(member.sitedevelopers) { %><b class="badge users"><i class="fa fa-display-code"></i></i> Site Developer</b><% } %>
+<% } %>

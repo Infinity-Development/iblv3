@@ -1,0 +1,10 @@
+<div class="pack_card" onclick="window.location.href='/packs/<%= pack.url %>'">
+    <div style="justify-content: left; align-items: left; text-align: left; padding: 0px;">
+        <b style="color: grey;">Made By <%= bot.users.cache.get(pack.owner) ? bot.users.cache.get(pack.owner).tag.length > 15 ? bot.users.cache.get(pack.owner).username.slice(0, 15) + `...#${bot.users.cache.get(pack.owner).discriminator}` : bot.users.cache.get(pack.owner).tag : pack.owner %></b>
+            <h4><%= pack.name.length > 25 ? pack.name.slice(0, 25) + "..." : pack.name %></h4>
+            <p class="shortdesc" style="height: 27px; overflow: auto; margin: 0px;"><%= pack.short %></p>
+            <p class="note" style="margin: 0px;"><%= pack.tags.length > 30 ? `${pack.tags.slice(0, 30)}...` : pack.tags %></p>
+    </div>
+    <p style="float: left; color: grey;"><i class="fa fa-globe"></i> Includes <%= pack.bots.length %> Bots</p>
+    <p style="float: right; color: grey;"><i class="fa fa-level-up"></i> <%= pack.votes + " Votes" %></p>
+</div>

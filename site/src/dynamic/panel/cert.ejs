@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, This is where the Certification Queue is.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Certification Queue`, 
+    main_title: `${bot.user.username} | Certification Queue`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <h3>Certification Queue</h3>
+  <button class="bigbutton" onclick="window.location.href = '/panel'">Home</button>
+  <button class="bigbutton" onclick="window.location.href = '/panel/queue'">Bot Queue</button><hr>
+
+<!-- Certification Queue -->
+<h3><i class="fa fa-check"></i> Certification Queue</h3>
+<% if(bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There's no any pending certification bots!</b>
+  <% }else{ %>
+<div class="container">
+<% bots.map(bots => { %>
+  <div class="cert_box">
+    <form method="POST">
+      <% if(bots.background !== "https://i.imgur.com/lNdMzuW.png") { %>
+        <img src="<%= bots.background %>" alt="Banner" onerror="this.onerror=null; this.src='https://i.imgur.com/lNdMzuW.png';" class="banner">
+        <% }else{ %>
+          <img src="https://i.imgur.com/lNdMzuW.png" style="opacity: 0.1;" alt="Banner" class="banner">
+        <% } %>
+  <div style="padding: 12px;">
+      <img style="cursor: pointer; width: 120px; border-radius: 100px; margin-top: -80px;" onclick="window.open('/bots/<%= bots.botID %>')" src="<%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).displayAvatarURL() : 'https://i.imgur.com/Z1jey6q.png' %>">
+      <h4 style="cursor: pointer;" onclick="window.open('/bots/<%= bots.botID %>')" ><%= bot.users.cache.get(bots.botID) ? bot.users.cache.get(bots.botID).username.length > 15 ? bot.users.cache.get(bots.botID).username.slice(0, 15) + "..." : bot.users.cache.get(bots.botID).username : bots.botName.length > 15 ? bots.botName.slice(0, 15) + "..." : bots.botName  %></h4>
+      <div class="container">
+        <div>
+          <p style="margin: 5px;">30 Unique Views: <% if(bots.unique_clicks.length >= 30){ %> <i class="fa fa-check" style="color: greenyellow;"></i> <% }else{ %><i class="fa fa-times" style="color: red;"></i></p> <% } %>
+          <p style="margin: 5px;">Listed for 1 week: <% if(604800000 - (Date.now() - bots.date) < 0){ %> <i class="fa fa-check" style="color: greenyellow;"></i> <% }else{ %><i class="fa fa-times" style="color: red;"></i></p> <% } %>
+          </div>
+        <div>
+          <p style="margin: 5px;">Using API: <% if(bots.servers > 0){ %> <i class="fa fa-check" style="color: greenyellow;"></i> <% }else{ %><i class="fa fa-times" style="color: red;"></i></p> <% } %>
+          <p style="margin: 5px;">30 votes: <% if(bots.votes >= 30){ %> <i class="fa fa-check" style="color: greenyellow;"></i> <% }else{ %><i class="fa fa-times" style="color: red;"></i></p> <% } %>
+        </div>
+      </div>
+      <textarea style="border-radius: 3px; width: 400px; margin: 10px; outline: none" name="cert_reason" placeholder="Reason: <%= bots.cert_reason %>" required></textarea>
+      <button name="uncertify" value="<%= bots.botID %>" class="queue_button deny"><i class="fa fa-trash"></i> Deny</button>
+      <button name="certify" value="<%= bots.botID %>" class="queue_button approve"><i class="fa fa-check"></i> Approve</button>
+    </form>
+  </div>
+</div>
+<% }) %>
+</div>
+<% } %>
+</center>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bots About Us.", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | About Us`, 
+    main_title: `${bot.user.username} | About Us`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+
+<body>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <h3>About Us and Our Team</h3>
+  <hr>
+  <p>
+    Infinity is the future of Bot Listing Services, we make it easier for you to advertise and grow your bots using our Premium Features, Bot Packs, Short Links and Custom Widgets.
+    <br><br>
+    Created and Founded on September 24, 2020 with the hope of providing Discord Users with a "above average" Bot Listing and Advertising service unlike those that currently exist and have for years.
+  </p>
+  
+  <br><br>
+  
+<h4>Staff Members</h4>
+<hr>
+<div class="container">
+  <% for(i of staffMembers){%>
+  <div class="staff">
+    <strong>
+      <b style="cursor: pointer; font-size: 18px;" info="<%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).presence.status : 'offline' %>"><%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).tag : 'None#0000' %></b>
+    </strong>
+    <div class="container">
+        <img style="cursor: pointer; border-radius: 10px; width: 150px;" onclick="window.location.href = '/users/<%= i.staffMember %>'" alt="<%= i.staffMember %>" src="<%= bot.users.cache.get(i.staffMember) ? bot.users.cache.get(i.staffMember).displayAvatarURL() : 'https://i.imgur.com/x0LCfAh.png' %>" style="border-radius: 4px;">
+      <div style="margin: 10px;">
+        <p>Denied Bots: <%= i.staffData.new_staff_stats.get("denied_bots") %></p>
+        <p>Approved Bots: <%= i.staffData.new_staff_stats.get("approved_bots") %></p>
+        <p>Certified Bots: <%= i.staffData.new_staff_stats.get("certified_bots") %></p>
+      </div>
+  </div>
+</div>
+  <% } %>
+ </div>
+  
+</div>
+</center>
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+<%- include(footerPath) %>
+</body>
+</html>

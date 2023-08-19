@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Vote for bot to increase it's visibility!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Vote`, 
+    main_title: `${bot.user.username} | Vote`, 
+    image: "none" }) %>
+  
+  <% 
+    let currentDay = new Date().getDay()
+  %>
+    <!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<script src="https://hcaptcha.com/1/api.js" async defer></script>
+<!-- Vote bot -->
+<center>
+  <img src="<%= fetch.displayAvatarURL() %>" alt="Infinity Bot List" style="width: 180px; border-radius: 100px; animation: shadow 2s infinite;"><br>
+  <h1><%= fetch.username %></h1>
+</center>
+<center>
+<label class="switch">
+    <input type="checkbox" onclick="vote()" id="agree">
+    <span class="slider round"></span>
+  </label>
+  <b>You can vote for this bot every <%= (currentDay === 5) || (currentDay === 0) || (currentDay === 6) ? "6" : "12" %> Hours.</b>   
+<div id="vote_bot" style="display: none; animation: 0.7s ease 0s 1 normal none running fadeIn;">
+<form id="vote-form" action="" method="POST">
+    <div class="h-captcha" id="hcaptcha" name="hcaptcha" data-sitekey="6b2c7a31-e1e6-4736-bb0b-420fa29e3da9" data-theme="dark"></div>
+    <button class="realbutton" value="vote bot" style="width: 250px; height: 50px; font-size: 20px;" name="submit"><i class="fa fa-level-up"></i> Vote</button>
+</form>
+  </div>
+  <button value="vote bot" onclick="location.href='/bots/<%= bots.certified ? bots.vanity : fetch.id %>'" style="width: 200px; height: 40px; font-size: 20px;" class="realbutton" name="submit">Back</button>
+  <br><br>
+<!-- Vote Page -->
+</center>
+<!-- Vote Scripts -->
+<script>
+    function vote(){
+        if(document.getElementById("agree").checked) document.getElementById("vote_bot").style.display = "block";
+        else document.getElementById("vote_bot").style.display = "none";
+     }
+
+    document.querySelector("#vote-form").addEventListener("submit", function(event) {
+
+   var hcaptchaVal = document.querySelector('[name="h-captcha-response"]').value;
+
+   if (hcaptchaVal === "") {
+      event.preventDefault();
+      alert('You must complete the captcha before voting every time it is completed we are donating money to charity so though it can be annoying its not entirely useless!')
+    }
+   });
+</script>
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

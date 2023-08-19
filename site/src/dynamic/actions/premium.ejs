@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "Infinity Bot List, Start Promote your discord bot to get more servers & users!", 
+    description2: "Infinity Bot List", 
+    title: `${bot.user.username} | Premium`, 
+    main_title: `${bot.user.username} | Premium`, 
+    image: "none" }) %>
+<!-- Alert -->
+<% if(alert) { %><%- include(dynamic + "/others/notification", {alert}) %><% }else if(error){ %><%- include(dynamic + "/others/notification", {error}) %><% } %>
+<body>
+
+<!-- Premium Process Content -->
+<center>
+  <% if(theme == "dark") { %> <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% }else{ %><img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px;"><% } %><br>
+  <h1 style="font-size: 35px; color: gold;"><i class="fa fa-diamond"></i> Premium</h1><hr>
+</center>
+
+  <form method="POST">
+<center>
+  <p>Select Bot:</p>
+  <select name="botID" class="input" required>
+    <datalist>
+    <% if(bots2.length === 0 && bots.length === 0){ %>
+        <option selected disabled>You don't have additional bots!</option>
+    <% }else{ %>
+      <% bots.map(the_bot => { %>
+        <option value="<%= the_bot.botID %>"><%= bot.users.cache.get(the_bot.botID) ? bot.users.cache.get(the_bot.botID).username : the_bot.botName %></option>
+      <% }) %>
+      <% bots2.map(the_bot => { %>
+        <option value="<%= the_bot.botID %>"><%= bot.users.cache.get(the_bot.botID) ? bot.users.cache.get(the_bot.botID).username : the_bot.botName %> (Additional Bot)</option>
+      <% }) %>
+    <% } %>
+    </datalist>
+  </select>
+</center><br><br>
+  <div class="container">
+    <!-- Plan One -->
+    <div class="plans">
+      <h4>Monthly <strong style="font-size: 30px;">$3.00</strong>/mo</h4>
+      <hr>
+      <div style="text-align: left; margin-left: 20px;">
+        <p><i class="fa fa-bullhorn"></i> Guaranteed Front Page Promotion.</p>
+        <p><i class="fa fa-robot"></i> Guaranteed Bots Page Promotion.</p>
+        <p><i class="fa fa-group"></i> Increased chance of More visits and More servers!</p>
+        <p><i class="fa fa-id-badge"></i> Badges for your bot on Bot Page and Bot Card!</p>
+        <p><b style="font-size: large;">∞</b> Infinite Votes, Shards, Servers!</p>
+        <p><i style="color: red;" class="fa fa-heart"></i> Show us some Love and Support.</p>
+        </div>
+      <button name="month" value="monthly subscribe" style="width: 350px;" class="realbutton"><i class="fa fa-shopping-basket"></i> Subscribe Now!</button>
+    </div>
+    <!-- Plan Two -->
+    <div class="plans" style="transform: translate(0px, -40px); height: 430px; margin: 50px;">
+      <b class="badge users">Recommended</b>
+      <h4>Monthly <strong style="font-size: 30px;">$10.00</strong>/3 mo</h4>
+      <hr>
+      <div style="text-align: left; margin-left: 20px;">
+        <p><i class="fa fa-bullhorn"></i> Guaranteed Front Page Promotion.</p>
+        <p><i class="fa fa-robot"></i> Guaranteed Bots Page Promotion.</p>
+        <p><i class="fa fa-group"></i> Increased chance of More visits and More servers!</p>
+        <p><i class="fa fa-id-badge"></i> Badges for your bot on Bot Page and Bot Card!</p>
+        <p><b style="font-size: large;">∞</b> Infinite Votes, Shards, Servers!</p>
+        <p><i style="color: red;" class="fa fa-heart"></i> Show us some Love and Support.</p>
+        </div>
+      <button name="three_months" value="3 months subscribe" style="width: 350px;" class="realbutton"><i class="fa fa-shopping-basket"></i> Subscribe Now!</button>
+    </div>
+        <!-- Plan Three -->
+    <div class="plans" style="transform: translate(0px, -40px); height: 430px; margin: 50px;">
+      <h4>Monthly <strong style="font-size: 30px;">$15.00</strong>/6 mo</h4>
+      <hr>
+      <div style="text-align: left; margin-left: 20px;">
+        <p><i class="fa fa-bullhorn"></i> Guaranteed Front Page Promotion.</p>
+        <p><i class="fa fa-robot"></i> Guaranteed Bots Page Promotion.</p>
+        <p><i class="fa fa-group"></i> Increased chance of More visits and More servers!</p>
+        <p><i class="fa fa-id-badge"></i> Badges for your bot on Bot Page and Bot Card!</p>
+        <p><b style="font-size: large;">∞</b> Infinite Votes, Shards, Servers!</p>
+        <p><i style="color: red;" class="fa fa-heart"></i> Show us some Love and Support.</p>
+        </div>
+      <button name="six_months" value="6 months subscribe" style="width: 350px;" class="realbutton"><i class="fa fa-shopping-basket"></i> Subscribe Now!</button>
+    </div> 
+    <!-- Plan Four -->
+    <div class="plans">
+      <h4>Annual <strong style="font-size: 30px;">$20.00</strong>/yr</h4>
+      <hr>
+      <div style="text-align: left; margin-left: 20px;">
+        <p><i class="fa fa-bullhorn"></i> Guaranteed Front Page Promotion.</p>
+        <p><i class="fa fa-robot"></i> Guaranteed Bots Page Promotion.</p>
+        <p><i class="fa fa-group"></i> Increased chance of More visits and More servers!</p>
+        <p><i class="fa fa-id-badge"></i> Badges for your bot on Bot Page and Bot Card!</p>
+        <p><b style="font-size: large;">∞</b> Infinite Votes, Shards, Servers!</p>
+        <p><i style="color: red;" class="fa fa-heart"></i> Show us some Love and Support.</p>
+      </div>
+    <button name="year" value="annual subscribe" style="width: 350px;" class="realbutton"><i class="fa fa-shopping-basket"></i> Subscribe Now!</button>
+    </div>
+  </div>
+  <center>
+    <p class="note">• We do not allow refunds under normal conditions. Exceptions can be made for Special Conditions</p>
+    <p>• For custom plans, contact any of our Staff Team</p>
+  </center>
+</form>
+
+</body>
+
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+
+<%- include(footerPath) %>
+</html>

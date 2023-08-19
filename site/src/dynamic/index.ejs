@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include(headerPath, { 
+    bot, user, path, 
+    description: "We make it easier for you to advertise and grow your Discord Bots using our bot packs, vanity link’s, stylish widget’s and more.", 
+    description2: "We make it easier for you to advertise and grow your Discord Bots using our bot packs, vanity link’s, stylish widget’s and more.", 
+    title: `${bot.user.username} | Home`, 
+    main_title: `${bot.user.username} | Home`, 
+    image: 'none'}) %>
+    
+<body>
+
+<% const random_tags = bot.config.tags.map(x => ({ x, r: Math.random() })).sort((a, b) => a.r - b.r).map(a => a.x).slice(0, 5); %>
+
+<center>
+  <img src="https://i.imgur.com/GRo0Zug.png" alt="Infinity Bot List" style="width: 220px; animation: jump 0.8s;">
+  <br>
+  <h1>Search our vast list of bots for an exciting start to your server!</h1>
+  <input class="searchinput" placeholder="Moderation with reaction roles" id="search_value"/>
+  <div class="container" style="max-width: 1000px;">
+    <% random_tags.map(tag => { %>
+      <button onclick="window.location.href='/search?q=<%= tag.toLowerCase() %>'" class="tag"><%= tag %></button>
+    <% }) %>
+  </div>
+  <div class="container" style="max-width: 1200px;" id="output"></div>
+  <!-- Home Page -->
+</center>
+<!-- Most Viewed Bots -->
+<h2 style="margin-left: 75px;"><i class="fa fa-eye"></i> Trending Bots</h2>
+<hr>
+<div style="margin-left: 75px;">
+  <% if(view_bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are no any new approved bots!</b>
+    <% }else{ %>
+    </div>
+  <center>
+    <div style="animation: start 2s;">
+    <div class="container" style="max-width: 1750px;">
+      <% for(i = 0; i < (view_bots.length < 10 ? view_bots.length : premium_bots[4] ? 9 : 10); i++){ %>
+        <%- include(dynamic + "/others/botcard", {bots: view_bots[i]}) %>
+      <% } %>
+    <% } %>
+    <% if(premium_bots[4]) { %><%- include(dynamic + "/others/premium_card", {bots: premium_bots[4]}) %><% } %>
+    </div>
+  </div>
+</center>
+<!-- Most Voted Bots -->
+<h3 style="margin-left: 75px;"><i class="fa fa-level-up"></i> Most Voted</h3>
+<hr>
+<div style="margin-left: 75px;">
+  <% if(votes_bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are not any approved bots!</b>
+    <% }else{ %>
+    </div>
+  <center>
+    <div style="animation: start 2s;">
+    <div class="container" style="max-width: 1750px;">
+      <% if(premium_bots[1]) { %><%- include(dynamic + "/others/premium_card", {bots: premium_bots[1]}) %><% } %>
+      <% if(premium_bots[0]) { %><%- include(dynamic + "/others/premium_card", {bots: premium_bots[0]}) %><% } %>
+      <% for(i = 0; i < (votes_bots.length < 10 ? votes_bots.length : premium_bots[1] ? premium_bots[0] ? 8 : 9 : premium_bots[0] ? 9 : 10); i++){ %>
+        <%- include(dynamic + "/others/botcard", {bots: votes_bots[i]}) %>
+      <% } %>
+    <% } %>
+  </div>
+    </div>
+  </center>
+<!-- Certified Bots -->
+  <h3 style="margin-left: 75px;"><i class="fa fa-certificate"></i> Certified Bots</h3>
+  <hr>
+  <div style="margin-left: 75px;">
+  <% if(certified_bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are not any certified bots!</b>
+    <% }else{ %>
+    </div>
+  <center>
+    <div style="animation: start 2s;">
+    <div class="container" style="max-width: 1750px;">
+      <% if(premium_bots[2]) { %><%- include(dynamic + "/others/premium_card", {bots: premium_bots[2]}) %><% } %>
+      <% for(i = 0; i < (certified_bots.length < 10 ? certified_bots.length : premium_bots[2] ? 9 : 10); i++){ %>
+        <%- include(dynamic + "/others/botcard", {bots: certified_bots[i]}) %>
+      <% } %>
+    <% } %>
+  </div>
+</div>
+  </center>
+  <!-- Recently Approved Bots -->
+  <h3 style="margin-left: 75px;"><i class="fa fa-external-link-square"></i> Recently Approved Bots</h3>
+  <hr>
+<div style="margin-left: 75px;">
+  <% if(new_bots.length === 0) { %>
+    <b><i class="fa fa-warning"></i> There are not any new approved bots!</b>
+    <% }else{ %>
+    </div>
+  <center>
+    <div style="animation: start 2s;">
+    <div class="container" style="max-width: 1750px;">
+      <% for(i = 0; i < (new_bots.length < 10 ? new_bots.length : premium_bots[3] ? 9 : 10); i++){ %>
+        <%- include(dynamic + "/others/botcard", {bots: new_bots[i]}) %>
+      <% } %>
+    <% } %>
+    <% if(premium_bots[3]) { %><%- include(dynamic + "/others/premium_card", {bots: premium_bots[3]}) %><% } %>
+    </div>
+  </div>
+</center>
+<!-- Bot Packs -->
+<h3 style="margin-left: 75px;"><i class="fa fa-external-link-square"></i> Bot Packs</h3>
+  <hr>
+  <div style="margin-left: 75px;">
+    <% if(packs.length === 0) { %>
+      <b><i class="fa fa-warning"></i> There are not any bot packages!</b>
+      <% }else{ %>
+      </div>
+      <center>
+      <div style="animation: start 2s;">
+      <div class="container" style="max-width: 1450px;">
+        <% for(i = 0; i < (packs.length < 10 ? packs.length : 10); i++){ %>
+          <%- include(dynamic + "/others/pack", {pack: packs[i]}) %>
+        <% } %>
+      <% } %>
+      </div>
+    </div>
+</center>
+<!-- Search Bar Script -->
+<script defer src="/static/assets/scripts/search.js"></script>
+<script src="https://status.botlist.site/widget/script.js"></script>
+<center>
+<a href="//www.dmca.com/Protection/Status.aspx?ID=6bfe1403-c4b3-45a4-921f-1359a6215327" style="display:none;" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-08.png?ID=6bfe1403-c4b3-45a4-921f-1359a6215327"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+</center>
+<%- include(footerPath) %>
+</div>
+</div>
+</body>
+</html>
