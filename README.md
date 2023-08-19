@@ -1,24 +1,25 @@
 <h2 align='center'>
   <img src="https://cdn.infinitybots.xyz/images/png/Infinity5.png" height='100px' width='100px' />
   <br> 
-  Infinity Bot List Version 3
+  Infinity Bot List
 </h2>
 <p align="center">
-The future of <a href="https://discord.com">Discord</a> Bot Listing Services, we make it easier for you to advertise and grow your bots using our widgets, bot packs and more!
+   This is the offificial source code for      our website prior to v4 (ie: 3.9 <) and
+   we are making it open-source simply to      maintain transparency.
 </p>
 
 <hr>
 
-<h2> Features </h2>
+<h2> Self Hosting </h2>
+<p align="center">
+   Please note that this code is extremely     outdated and may rely on dependencies       that are no longer supported or             maintained by npm or their develoeprs!
+</p>
 
-- Clean and Modern UI with a Theme Changer (Dark and Light mode) with support for Google Ads.
-![Infinity Home Page](https://img.toxicdev.me/31edb5.png)
+<p align="center">
+   We do not suggest you attempt to use        this code in a production environment as    it died with major issues including data    loss and more. 
+</p>
 
-- Modern and Minimalistic About Page with a integrated Staff List
-![About Us](https://img.toxicdev.me/16b465.png)
+<p align="center">
+   Finally we will <strong>>not</strong>       offer any sort of support in terms of       hosting or updating this code so please     do not ask
+</p>
 
-- Bot Listing with a Integrated Search Bar and tons of Pre-Defined Options.
-![Bots and Search](https://img.toxicdev.me/1cc292.png)
-
-- Modern and Stylish Bot Widgets with a variety of Available Sizes
-![Infinity Bot List Widget](https://infinitybots.gg/bots/815553000470478850/widget?size=large)
