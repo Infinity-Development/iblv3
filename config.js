@@ -211,5 +211,3 @@ exports.sitedevelopers = [
   '728871946456137770', // Burgerking
   '759180080328081450', // inthedark.org
 ];
-
-exports.metrokey = 'METRO_KEY';
